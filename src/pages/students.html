@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/reset.css"/>
+    <link rel="stylesheet" href="../css/varaiables.css"/>
+    <link rel="stylesheet" href="../css/style.css"/>
+    <link rel="stylesheet" href="../css/navbar.css"/>
+    <link rel="stylesheet" href="../css/footer.css"/>
+    <title>Students</title>
+</head>
+<body>
+    <header>
+      <nav class="navbar">
+        <ul class="navbar__links">
+          <li class="navbar__link"><a href="./students.html">Students</a></li>
+          <li class="navbar__link"><a href="./instructor.html">Instructor</a></li>
+          <li class="navbar__link"><a href="./courses.html">Courses</a></li>
+        </ul>
+      </nav>
+    </header>   
+    <main>
+        <div class="collection students-collection">
+            <ul class="student-list">
+              Currently nothing to display
+            </ul>
+        </div>
+        <div class="add-container">
+            <button class="add-student-button">Add</button>
+        </div>
+    </main> 
+    <!-- form modal -->
+    <div class="form-modal student-form-modal">
+      <form class="student-form">
+
+      </form>
+    </div>
+    <!-- delete modal -->
+    <div class="delete-modal delete-student-modal">
+      <div class="delete-student-modal__container">
+        <p class="delete-student-modal__text"></p>
+        <div class="delete-student-modal__buttons">
+          <button class="delete-student-modal__cancel-button">Cancel</button>
+          <button class="delete-student-modal__delete-button">Delete</button>
+        </div>
+      </div>
+    </div>
+    <footer>
+        <p></p>
+    </footer>
+    <script type="module" src="../js/app.js"></script>
+</body>
+</html>
