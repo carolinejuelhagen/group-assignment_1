@@ -1,42 +1,91 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/reset.css"/>
-    <link rel="stylesheet" href="../css/variables.css"/>
-    <link rel="stylesheet" href="../css/style.css"/>
-    <link rel="stylesheet" href="../css/navbar.css"/>
-    <link rel="stylesheet" href="../css/footer.css"/>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../css/reset.css" />
+    <link rel="stylesheet" href="../css/variables.css" />
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../css/navbar.css" />
+    <link rel="stylesheet" href="../css/footer.css" />
     <title>Instructor</title>
-</head>
-<body>
+  </head>
+  <body>
     <header>
       <div class="logo">
-        <a href="../../index.html"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M480-120 200-272v-240L40-600l440-240 440 240v320h-80v-276l-80 44v240L480-120Zm0-332 274-148-274-148-274 148 274 148Zm0 241 200-108v-151L480-360 280-470v151l200 108Zm0-241Zm0 90Zm0 0Z"/></svg></a>
-      </div> 
+        <a href="../../index.html"
+          ><svg
+            xmlns="http://www.w3.org/2000/svg"
+            height="24px"
+            viewBox="0 -960 960 960"
+            width="24px"
+            fill="#000000"
+          >
+            <path
+              d="M480-120 200-272v-240L40-600l440-240 440 240v320h-80v-276l-80 44v240L480-120Zm0-332 274-148-274-148-274 148 274 148Zm0 241 200-108v-151L480-360 280-470v151l200 108Zm0-241Zm0 90Zm0 0Z"
+            />
+          </svg>
+        </a>
+      </div>
       <nav class="navbar">
         <ul class="navbar__links">
           <li class="navbar__link"><a href="./students.html">Students</a></li>
-          <li class="navbar__link"><a href="./instructor.html">Instructor</a></li>
+          <li class="navbar__link">
+            <a href="./instructor.html">Instructor</a>
+          </li>
           <li class="navbar__link"><a href="./courses.html">Courses</a></li>
         </ul>
       </nav>
     </header>
     <main>
-        <div class="collection instructor-collection">
-            <ul class="instructor-list">
-              Currently nothing to display
-            </ul>
-        </div>
-        <div class="add-container">
-            <button class="add-instructor-button">Add</button>
-        </div>
-    </main> 
+      <div class="collection instructor-collection">
+        <ul class="list list--instructors">
+          Currently nothing to display
+        </ul>
+      </div>
+      <div class="add-container">
+        <button class="add-button add-button--instructor">Add</button>
+      </div>
+    </main>
     <!-- form modal -->
     <div class="form-modal instructor-form-modal">
       <form class="instructor-form">
-        
+        <div class="form__group">
+          <label for="firstname">First Name *:</label>
+          <input
+            type="text"
+            id="firstname"
+            name="firstname"
+            placeholder="e.g...Reza"
+            maxlength="15"
+            required
+            class="form__input form__input--instructor-firstname"
+          />
+        </div>
+        <div class="form__group">
+          <label for="lastname">Last Name *:</label>
+          <input
+            type="text"
+            id="lastname"
+            name="lastname"
+            placeholder="e.g...Smith"
+            maxlength="15"
+            required
+            class="form__input form__input--instructor-lastname"
+          />
+        </div>
+        <div class="form__group">
+          <label for="email">Email Address *:</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            placeholder="e.g...smith@mail.com"
+            maxlength="15"
+            required
+            class="form__input form__input--instructor-email"
+          />
+        </div>
       </form>
     </div>
     <!-- delete modal -->
@@ -49,9 +98,20 @@
         </div>
       </div>
     </div>
-    <footer>
-        <p></p>
+    <footer class="footer">
+      <p class="footer__paragraph">
+        &copy; 2025 ECJD. Licensed under the
+        <a
+          class="footer__link"
+          href="../../public/License.txt"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="View the MIT License details"
+        >
+          MIT License </a
+        >.
+      </p>
     </footer>
     <script type="module" src="../js/app.js"></script>
-</body>
+  </body>
 </html>
