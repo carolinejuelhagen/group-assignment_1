@@ -1,0 +1,44 @@
+:root {
+    /* COLORS */
+    --color-background-dark-gradient: linear-gradient(to right,
+            #243949 0%,
+            #527da1 100%);
+    --color-background-light-gradient: linear-gradient(to top,
+            white 0%,
+            #d4e6f6 50%,
+            white 100%);
+    --color-background-light: #e0ffff;
+    --color-background-medium: #acdcee;
+    --color-background-dark: #002244;
+
+    --modal-overlay-background: rgba(0, 0, 0, 0.7);
+
+    --text-color-light: #e6e6fa;
+    --text-color-dark: #002244;
+
+    --text-validation-message: #ff0000;
+
+    /* SPACING */
+    --spacing-x-small: 0.25rem;
+    --spacing-small: 0.5rem;
+    --spacing-medium: 1rem;
+    --spacing-large: 2rem;
+    --spacing-x-large: 3rem;
+
+    /* FONT SIZE */
+    --font-size-small: 0.5rem;
+    --font-size-base: 1rem;
+    --font-size-medium: 1.2rem;
+    --font-size-large: 1.5rem;
+    --font-size-x-large: 2rem;
+
+    /* BORDER RADIUS */
+    --border-radius-small: 0.25rem;
+    --border-radius-medium: 0.5rem;
+
+    /* BORDER TYPE */
+    --border-base: 2px solid var(--color-background-dark);
+
+    /* BOX SHADOW */
+    --box-shadow-base: 0 0 5px 0 rgba(0, 0, 0, 0.3);
+}

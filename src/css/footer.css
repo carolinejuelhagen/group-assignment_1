@@ -1,0 +1,18 @@
+.footer {
+    display: flex;
+    justify-content: center;
+    padding: var(--spacing-medium);
+    background-color: var(--color-background-dark);
+}
+
+.footer__paragraph {
+    display: block;
+    color: var(--text-color-light);
+    font-size: var(--font-size-base);
+}
+
+.footer__link {
+    color: var(--color-background-medium);
+    text-decoration: none;
+    transition: all 0.3s ease;
+}

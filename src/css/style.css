@@ -1,4 +1,31 @@
+/* Importing the fonts */
+@font-face {
+    font-family: Lato-Regular;
+    src: url('../assets/fonts/Lato-Regular.ttf');
+}
+
+@font-face {
+    font-family: Lato-Black;
+    src: url('../assets/fonts/Lato-Black.ttf');
+}
+
+
+/* Styles for the body content */
 body {
     width: 100%;
     min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-image: var(--color-background-dark-gradient);
+    font-family: Lato-Regular, sans-serif;
+    color: var(--text-color-light);
+}
+
+/* Styles for the main content */
+main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
