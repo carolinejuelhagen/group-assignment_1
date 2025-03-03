@@ -1,21 +1,13 @@
 class UI {
   currentEditId = null;
 
-  static displayStudentAddModal(studentAddButton, studentFormModal) {
-    studentAddButton.addEventListener("click", () => {
-      studentFormModal.classList.add("display-form");
-    });
-  }
-
-  static displayInstructorAddModal(instructorAddButton, instructorFormModal) {
-    instructorAddButton.addEventListener("click", () => {
-      instructorFormModal.classList.add("display-form");
-    });
-  }
-
-  static displayCourseAddModal(courseAddButton, courseFormModal) {
-    courseAddButton.addEventListener("click", () => {
-      courseFormModal.classList.add("display-form");
+  static handleToggleSection(contentSections, target) {
+    contentSections.forEach((section) => {
+      if (section.id === target) {
+        section.classList.add("content-section--active");
+      } else {
+        section.classList.remove("content-section--active");
+      }
     });
   }
 

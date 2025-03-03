@@ -7,33 +7,103 @@
     <link rel="stylesheet" href="./src/css/variables.css" />
     <link rel="stylesheet" href="./src/css/style.css" />
     <link rel="stylesheet" href="./src/css/navbar.css" />
+    <link rel="stylesheet" href="./src/css/displayList.css" />
+    <link rel="stylesheet" href="./src/css/form.css" />
     <link rel="stylesheet" href="./src/css/footer.css" />
     <title>Group assignment 1</title>
   </head>
   <body>
     <header>
       <div class="logo">
-        <a href="./index.html"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000000"><path d="M480-120 200-272v-240L40-600l440-240 440 240v320h-80v-276l-80 44v240L480-120Zm0-332 274-148-274-148-274 148 274 148Zm0 241 200-108v-151L480-360 280-470v151l200 108Zm0-241Zm0 90Zm0 0Z"/></svg></a>
-      </div>  
+        <a href="./index.html"
+          ><svg
+            xmlns="http://www.w3.org/2000/svg"
+            height="24px"
+            viewBox="0 -960 960 960"
+            width="24px"
+            fill="#000000"
+          >
+            <path
+              d="M480-120 200-272v-240L40-600l440-240 440 240v320h-80v-276l-80 44v240L480-120Zm0-332 274-148-274-148-274 148 274 148Zm0 241 200-108v-151L480-360 280-470v151l200 108Zm0-241Zm0 90Zm0 0Z"
+            />
+          </svg>
+        </a>
+      </div>
       <nav class="navbar">
         <ul class="navbar__links">
           <li class="navbar__link">
-            <a href="./src/pages/students.html">Students</a>
+            <a href="./src/pages/students.html" data-target="students"
+              >Students</a
+            >
           </li>
           <li class="navbar__link">
-            <a href="./src/pages/instructor.html">Instructor</a>
+            <a href="./src/pages/instructor.html" data-target="instructors"
+              >Instructors</a
+            >
           </li>
           <li class="navbar__link">
-            <a href="./src/pages/courses.html">Courses</a>
+            <a href="./src/pages/courses.html" data-target="courses">Courses</a>
           </li>
         </ul>
       </nav>
     </header>
     <main>
-      <section>
-        <div></div>
+      <section class="content-section content-section--active">
+        <h1>Welcome</h1>
+        <h2>
+          Please select a category in the links above to begin registration
+        </h2>
+      </section>
+
+      <section class="content-section" id="students">
+        <div class="add-container">
+          <button class="add-button" data-target="students">✚</button>
+        </div>
+        <div class="list-container" id="students-list"></div>
+      </section>
+
+      <section class="content-section" id="instructors">
+        <div class="add-container">
+          <button class="add-button" data-target="instructors">✚</button>
+        </div>
+        <div class="list-container" id="instructors-list"></div>
+      </section>
+
+      <section class="content-section" id="courses">
+        <div class="add-container">
+          <button class="add-button" data-target="courses">✚</button>
+        </div>
+        <div class="list-container" id="courses-list"></div>
       </section>
     </main>
+
+    <!-- form modal -->
+    <div class="form-modal">
+      <form class="form">
+        <div class="form-header">
+          <h2>Add new</h2>
+        </div>
+        <div class="form-body"></div>
+        <div class="form-footer">
+          <button type="submit" class="submit-button">Add</button>
+          <button type="button" class="cancel-button">
+            Cancel Registration
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <!-- delete modal -->
+    <div class="delete-modal">
+      <div class="delete-modal-content">
+        <p class="delete-message"></p>
+        <div class="delete-buttons-container">
+          <button class="confirm-delete"></button>
+          <button class="cancel-delete"></button>
+        </div>
+      </div>
+    </div>
+
     <footer class="footer">
       <p class="footer__paragraph">
         &copy; 2025 ECJD. Licensed under the
