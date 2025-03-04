@@ -1,6 +1,7 @@
 .form-modal {
   width: 100%;
   height: 100%;
+  /* display: flex; */
   display: none;
   flex-direction: column;
   align-items: center;
@@ -26,4 +27,57 @@
   background-color: aliceblue;
   border-radius: var(--border-radius-small);
   padding: var(--spacing-large);
+}
+
+.form-header {
+  display: flex;
+  height: 2rem;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.form-header h2 {
+  font-size: 1.5rem;
+  color: var(--text-color-dark);
+}
+
+.form-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: var(--spacing-medium);
+  width: 80%;
+}
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-small);
+}
+
+.form-footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: var(--spacing-medium);
+}
+
+.form-footer button {
+  padding: var(--spacing-small) var(--spacing-medium);
+  border-radius: var(--border-radius-small);
+  background-color: var(--text-color-light);
+  color: var(--text-color-dark);
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+label {
+  font-size: 1.2rem;
+  color: var(--text-color-dark);
+}
+
+input {
+  padding: var(--spacing-small);
+  border-radius: var(--border-radius-small);
+  border: 1px solid var(--border-color);
 }

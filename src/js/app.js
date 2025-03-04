@@ -9,8 +9,12 @@ const addButtons = document.querySelectorAll(".add-button");
 
 const formModal = document.querySelector(".form-modal");
 const form = document.querySelector(".form");
-const formSubmit = document.querySelector(".submit-button");
-const formModalClose = document.querySelector(".cancel-button");
+const formHeader = document.querySelector(".form-header");
+const formBody = document.querySelector(".form-body");
+const formFooter = document.querySelector(".form-footer");
+
+//const formSubmit = document.querySelector(".submit-button");
+//const formModalClose = document.querySelector(".cancel-button");
 
 const deleteModal = document.querySelector(".delete-modal");
 const deleteMessage = document.querySelector(".delete-message");
@@ -40,10 +44,7 @@ document.addEventListener("DOMContentLoaded", () => {
   addButtons.forEach((button) => {
     button.addEventListener("click", (e) => {
       const target = e.currentTarget.getAttribute("data-target");
-      UI.openAddModal(formModal, target);
-    });
-    formModalClose.addEventListener("click", () => {
-      UI.closeAddModal(formModal);
+      UI.openAddModal(formModal, formHeader, formBody, formFooter, target);
     });
   });
 });
