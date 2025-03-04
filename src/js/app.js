@@ -37,4 +37,13 @@ document.addEventListener("DOMContentLoaded", () => {
       UI.handleToggleSection(contentSections, target);
     });
   });
+  addButtons.forEach((button) => {
+    button.addEventListener("click", (e) => {
+      const target = e.currentTarget.getAttribute("data-target");
+      UI.openAddModal(formModal, target);
+    });
+    formModalClose.addEventListener("click", () => {
+      UI.closeAddModal(formModal);
+    });
+  });
 });

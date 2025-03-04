@@ -11,7 +11,13 @@ class UI {
     });
   }
 
-  static closeAddModal() {}
+  static openAddModal(formModal, target) {
+    formModal.classList.add("form-modal--display");
+  }
+
+  static closeAddModal(formModal) {
+    formModal.classList.remove("form-modal--display");
+  }
 }
 
 export default UI;
