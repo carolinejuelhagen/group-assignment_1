@@ -8,7 +8,6 @@ const addButtons = document.querySelectorAll(".add-button");
 // const displayContainers = document.querySelectorAll(".list-container");
 
 const formModal = document.querySelector(".form-modal");
-const form = document.querySelector(".form");
 const formHeader = document.querySelector(".form-header");
 const formBody = document.querySelector(".form-body");
 const formFooter = document.querySelector(".form-footer");
@@ -36,7 +35,7 @@ document.addEventListener("DOMContentLoaded", () => {
       e.currentTarget.classList.add("navbar__link--active");
 
       const target = e.currentTarget.getAttribute("data-target");
-      console.log(target);
+      //console.log(target);
 
       UI.handleToggleSection(contentSections, target);
     });
