@@ -15,9 +15,9 @@ body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  background-image: var(--color-background-dark-gradient);
+  background-color: var(--color-background-medium);
   font-family: Lato-Regular, sans-serif;
-  color: var(--text-color-light);
+  color: var(--text-color-dark);
 }
 
 /* Styles for the main content */
@@ -45,14 +45,15 @@ main {
 .add-container {
   position: fixed;
   bottom: 75px;
-  right: 25px;
+  right: 50px;
 }
 
-.add-button {
-  min-width: 100px;
-  min-height: 64px;
+button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: var(--spacing-small);
   border-radius: var(--border-radius-small);
-  background-color: var(--color-background-medium);
-  cursor: pointer;
-  font-size: 50px;
+  border: 2px solid var(--color-background-dark);
+  background-color: var(--color-background-light);
 }
