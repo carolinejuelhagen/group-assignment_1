@@ -1,3 +1,9 @@
+import StudentManager from "./mangerComponents/studentManager.js";
+import InstructorManager from "./mangerComponents/instructorManager.js";
+import CourseManager from "./mangerComponents/courseManager.js";
+
+const form = document.querySelector(".form");
+let previousFormSubmitHandler = null;
 class UI {
   currentEditId = null;
 
@@ -13,6 +19,7 @@ class UI {
 
   static openAddModal(formModal, formHeader, formBody, formFooter, target) {
     formModal.classList.add("form-modal--display");
+
     UI.renderForm(formModal, formHeader, formBody, formFooter, target);
   }
 
@@ -75,7 +82,7 @@ class UI {
       const studentSubmitButton = document.createElement("button");
       studentSubmitButton.textContent = "Register Student";
       studentSubmitButton.classList.add("submit-button");
-      studentSubmitButton.setAttribute("type", "submit");
+
       studentSubmitButton.setAttribute("id", "submit");
       studentSubmitButton.setAttribute("data-target", "students");
 
@@ -109,6 +116,16 @@ class UI {
       //Adding event listeners
       formModalClose.addEventListener("click", (e) => {
         UI.closeAddModal(formModal);
+      });
+      studentSubmitButton.addEventListener("click", (e) => {
+        e.preventDefault();
+
+        StudentManager.addStudent(
+          studentFirstNameInput.value.trim(),
+          studentLastNameInput.value.trim(),
+          studentEmailInput.value.trim(),
+          studentPhoneInput.value.trim()
+        );
       });
     } else if (target === "instructors") {
       const instructorFormHeading = document.createElement("h2");
@@ -159,7 +176,7 @@ class UI {
       const instructorSubmitButton = document.createElement("button");
       instructorSubmitButton.textContent = "Register Instructor";
       instructorSubmitButton.classList.add("submit-button");
-      instructorSubmitButton.setAttribute("type", "submit");
+
       instructorSubmitButton.setAttribute("id", "submit");
       instructorSubmitButton.setAttribute("data-target", "instructors");
 
@@ -195,6 +212,15 @@ class UI {
       formFooter.append(instructorSubmitButton, formModalClose);
 
       //adding event listeners
+      instructorSubmitButton.addEventListener("click", (e) => {
+        e.preventDefault();
+        InstructorManager.addInstructor(
+          instructorFirstNameInput.value.trim(),
+          instructorLastNameInput.value.trim(),
+          instructorEmailInput.value.trim(),
+          instructorPhoneInput.value.trim()
+        );
+      });
 
       formModalClose.addEventListener("click", () => {
         UI.closeAddModal(formModal);
@@ -206,8 +232,8 @@ class UI {
 
       const courseNameContainer = document.createElement("div");
       courseNameContainer.classList.add("form-group");
-      const courseDescriptionContainer = document.createElement("div");
-      courseDescriptionContainer.classList.add("form-group");
+      const courseCodeContainer = document.createElement("div");
+      courseCodeContainer.classList.add("form-group");
 
       const courseNameLabel = document.createElement("label");
       courseNameLabel.textContent = "Enter Course Name";
@@ -217,18 +243,18 @@ class UI {
       courseNameInput.setAttribute("name", "courseName");
       courseNameInput.setAttribute("id", "courseName");
 
-      const courseDescriptionLabel = document.createElement("label");
-      courseDescriptionLabel.textContent = "Enter Course Description";
-      const courseDescriptionInput = document.createElement("input");
-      courseDescriptionInput.classList.add("input");
-      courseDescriptionInput.setAttribute("type", "text");
-      courseDescriptionInput.setAttribute("name", "courseDescription");
-      courseDescriptionInput.setAttribute("id", "courseDescription");
+      const courseCodeLabel = document.createElement("label");
+      courseCodeLabel.textContent = "Enter Course Code";
+      const courseCodeInput = document.createElement("input");
+      courseCodeInput.classList.add("input");
+      courseCodeInput.setAttribute("type", "text");
+      courseCodeInput.setAttribute("name", "courseCode");
+      courseCodeInput.setAttribute("id", "courseCode");
 
       const courseSubmitButton = document.createElement("button");
       courseSubmitButton.textContent = "Create Course";
       courseSubmitButton.classList.add("submit-button");
-      courseSubmitButton.setAttribute("type", "submit");
+
       courseSubmitButton.setAttribute("id", "submit");
       courseSubmitButton.setAttribute("data-target", "courses");
 
@@ -238,16 +264,21 @@ class UI {
       formModalClose.setAttribute("type", "button");
 
       formHeader.append(courseFormHeading);
-      formBody.append(courseNameContainer, courseDescriptionContainer);
+      formBody.append(courseNameContainer, courseCodeContainer);
       courseNameContainer.append(courseNameLabel, courseNameInput);
-      courseDescriptionContainer.append(
-        courseDescriptionLabel,
-        courseDescriptionInput
-      );
+      courseCodeContainer.append(courseCodeLabel, courseCodeInput);
 
       formFooter.append(courseSubmitButton, formModalClose);
 
       //Adding event listeners
+
+      courseSubmitButton.addEventListener("click", (e) => {
+        e.preventDefault();
+        CourseManager.addCourse(
+          courseNameInput.value.trim(),
+          courseCodeInput.value.trim()
+        );
+      });
 
       formModalClose.addEventListener("click", () => {
         UI.closeAddModal(formModal);
