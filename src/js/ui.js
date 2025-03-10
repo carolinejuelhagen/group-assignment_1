@@ -2,8 +2,10 @@ import StudentManager from "./mangerComponents/studentManager.js";
 import InstructorManager from "./mangerComponents/instructorManager.js";
 import CourseManager from "./mangerComponents/courseManager.js";
 
-const form = document.querySelector(".form");
-let previousFormSubmitHandler = null;
+const studentList = document.querySelector(".student-list");
+const instructorList = document.querySelector(".instructors-list");
+const courseList = document.querySelector(".courses-list");
+
 class UI {
   currentEditId = null;
 
@@ -284,6 +286,49 @@ class UI {
         UI.closeAddModal(formModal);
       });
     }
+  }
+
+  static renderCourses(coursesCollection) {
+    courseList.innerHTML = "";
+    coursesCollection.forEach((course) => {
+      //Creating content
+      const courseCard = document.createElement("li");
+
+      const courseInformationContainer = document.createElement("div");
+      const courseEnrollmentContainer = document.createElement("div");
+
+      const courseInformationContent = document.createElement("div");
+      const courseInformationTools = document.createElement("div");
+
+      const courseEnrollmentContent = document.createElement("div");
+      const courseEnrollmentTools = document.createElement("div");
+
+      const courseName = document.createElement("p");
+      courseName.textContent = course.courseName;
+      const courseCode = document.createElement("p");
+      courseCode.textContent = course.courseCode;
+
+      const editCourseButton = document.createElement("button");
+      const deleteCourseButton = document.createElement("button");
+
+      //appending elements
+
+      courseList.append(courseCard);
+
+      courseCard.append(courseInformationContainer, courseEnrollmentContainer);
+
+      courseInformationContainer.append(
+        courseInformationContent,
+        courseInformationTools
+      );
+      courseEnrollmentContainer.append(
+        courseEnrollmentContent,
+        courseEnrollmentTools
+      );
+
+      courseInformationContent.append(courseName, courseCode);
+      courseInformationTools.append(editCourseButton, deleteCourseButton);
+    });
   }
 }
 

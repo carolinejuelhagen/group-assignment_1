@@ -35,9 +35,15 @@ document.addEventListener("DOMContentLoaded", () => {
       e.currentTarget.classList.add("navbar__link--active");
 
       const target = e.currentTarget.getAttribute("data-target");
-      //console.log(target);
 
       UI.handleToggleSection(contentSections, target);
+
+      if (target === "courses") {
+        const latestCourseCollection =
+          JSON.parse(localStorage.getItem("courses")) || [];
+        UI.renderCourses(latestCourseCollection);
+        console.log(latestCourseCollection);
+      }
     });
   });
   addButtons.forEach((button) => {
