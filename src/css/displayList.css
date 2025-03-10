@@ -14,22 +14,6 @@
 }
 
 .list-container {
-  width: 90%;
-  height: auto;
+  width: 80%;
+  flex: 1;
 }
-
-/* .list {
- ul 
-}
-
-.list-item {
-  li
-}
-
-.list-item__person-container {
-   div
-}
-
-.list-item__enrollment-container {
-   div 
-} */
