@@ -10,10 +10,9 @@
   top: 0;
   left: 0;
   z-index: 1000;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: var(--modal-overlay-background);
 }
 
-/* this displays above */
 .form-modal--display {
   display: flex;
 }
@@ -21,16 +20,12 @@
 .form {
   min-width: 360px;
   max-width: 460px;
-  /* ADD - max-width !!! *********************************/
   width: 95%;
-  /* CHANGE - width !!! *********************************/
   height: auto;
   display: flex;
   flex-direction: column;
   gap: var(--spacing-large);
-  /* CHANGE - gap !!! *********************************/
-  background-color: #b4d7f5;
-  /* CHANGE - background-color !!! *********************************/
+  background-color: var(--color-background-medium);
   border-radius: var(--border-radius-small);
   padding: var(--spacing-large);
 }
@@ -44,7 +39,7 @@
 }
 
 .form-header h2 {
-  font-size: 1.5rem;
+  font-size: var(--font-size-large);
   color: var(--text-color-dark);
 }
 
@@ -54,7 +49,6 @@
   justify-content: center;
   gap: var(--spacing-medium);
   width: 100%;
-  /* CHANGE - width !!! *********************************/
 }
 
 .form-group {
@@ -66,20 +60,13 @@
 .form-footer {
   display: flex;
   flex-direction: column;
-  /* CHANGE - flex-direction !!! *********************************/
   gap: var(--spacing-small);
 }
 
 .form-footer button {
-  padding: var(--spacing-small) var(--spacing-medium);
-  border-radius: var(--border-radius-small);
-  background-color: var(--text-color-light);
+  width: 100%;
   color: var(--text-color-dark);
   font-size: var(--font-size-base);
-  /* CHANGE - font-size !!! *********************************/
-  cursor: pointer;
-  width: 100%;
-  /* ADD - width !!! *********************************/
 }
 
 label {
@@ -90,5 +77,5 @@ label {
 input {
   padding: var(--spacing-small);
   border-radius: var(--border-radius-small);
-  border: 1px solid var(--border-color);
+  border: 1px solid var(--color-background-dark);
 }
