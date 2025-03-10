@@ -1,5 +1,5 @@
 .content-section {
-  height: 100vh;
+  flex: 1;
   width: 100%;
 
   display: none;
@@ -16,4 +16,46 @@
 .list-container {
   width: 80%;
   flex: 1;
+  border: 1px solid red;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: auto;
+  border: 1px solid blue;
+}
+
+.list-item {
+  min-height: 150px;
+
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-large);
+  padding: var(--spacing-small);
+  border: 1px solid black;
+}
+
+.list-item__information-container {
+  display: flex;
+  justify-content: space-between;
+  border: 1px solid green;
+}
+.list-item__information {
+  flex-basis: 80%;
+}
+
+.list-item__tools {
+  flex-basis: 20%;
+}
+
+.list-item__tools button {
+  width: 100%;
+}
+
+.list-item__enrollment-container {
+  display: flex;
+  border: 1px dashed pink;
 }

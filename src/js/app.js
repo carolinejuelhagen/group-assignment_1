@@ -42,7 +42,14 @@ document.addEventListener("DOMContentLoaded", () => {
         const latestCourseCollection =
           JSON.parse(localStorage.getItem("courses")) || [];
         UI.renderCourses(latestCourseCollection);
-        console.log(latestCourseCollection);
+      } else if (target === "students") {
+        const latestStudentCollection =
+          JSON.parse(localStorage.getItem("students")) || [];
+        UI.renderStudents(latestStudentCollection);
+      } else if (target === "instructors") {
+        const latestInstructorCollection =
+          JSON.parse(localStorage.getItem("instructors")) || [];
+        UI.renderInstructors(latestInstructorCollection);
       }
     });
   });

@@ -2,7 +2,7 @@ import StudentManager from "./mangerComponents/studentManager.js";
 import InstructorManager from "./mangerComponents/instructorManager.js";
 import CourseManager from "./mangerComponents/courseManager.js";
 
-const studentList = document.querySelector(".student-list");
+const studentList = document.querySelector(".students-list");
 const instructorList = document.querySelector(".instructors-list");
 const courseList = document.querySelector(".courses-list");
 
@@ -288,14 +288,182 @@ class UI {
     }
   }
 
+  static renderStudents(studentsCollection) {
+    studentList.innerHTML = "";
+    studentsCollection.forEach((student) => {
+      //Creating content
+      const studentCard = document.createElement("li");
+      studentCard.classList.add("list-item");
+
+      const studentInformationContainer = document.createElement("div");
+      studentInformationContainer.classList.add(
+        "list-item__information-container"
+      );
+      const studentEnrollmentContainer = document.createElement("div");
+      studentEnrollmentContainer.classList.add(
+        "list-item__enrollment-container"
+      );
+
+      const studentInformationContent = document.createElement("div");
+      studentInformationContent.classList.add("list-iten__information");
+      const studentInformationTools = document.createElement("div");
+      studentInformationTools.classList.add("list-item__tools");
+
+      const studentEnrollmentContent = document.createElement("div");
+      studentEnrollmentContent.classList.add("list-item__information");
+      const studentEnrollmentTools = document.createElement("div");
+      studentEnrollmentTools.classList.add("list-item__tools");
+
+      const studentFirstName = document.createElement("p");
+      studentFirstName.textContent = student.firstName;
+      const studentLastName = document.createElement("p");
+      studentLastName.textContent = student.lastName;
+      const studentEmail = document.createElement("p");
+      studentEmail.textContent = student.email;
+      const studentPhone = document.createElement("p");
+      studentPhone.textContent = student.phone;
+      const studentId = document.createElement("p");
+      studentId.textContent = student.studentId;
+
+      const editStudentButton = document.createElement("button");
+      editStudentButton.textContent = "edit";
+      const deleteStudentButton = document.createElement("button");
+      deleteStudentButton.textContent = "delete";
+
+      student.courses.forEach((course) => {
+        const selectedCourse = document.createElement("p");
+        selectedCourse.textContent = course.courseName + course.courseCode;
+        studentEnrollmentContent.append(selectedCourse);
+      });
+
+      const studentEnrollmentButton = document.createElement("button");
+      studentEnrollmentButton.textContent = "Assign to course";
+
+      //appending elements
+
+      studentList.append(studentCard);
+
+      studentCard.append(
+        studentInformationContainer,
+        studentEnrollmentContainer
+      );
+
+      studentInformationContainer.append(
+        studentInformationContent,
+        studentInformationTools
+      );
+      studentEnrollmentContainer.append(
+        studentEnrollmentContent,
+        studentEnrollmentTools
+      );
+
+      studentInformationContent.append(
+        studentFirstName,
+        studentLastName,
+        studentEmail,
+        studentPhone,
+        studentId
+      );
+      studentInformationTools.append(editStudentButton, deleteStudentButton);
+      studentEnrollmentTools.append(studentEnrollmentButton);
+    });
+  }
+
+  static renderInstructors(instructorsCollection) {
+    instructorList.innerHTML = "";
+    instructorsCollection.forEach((instructor) => {
+      //Creating content
+      const instructorCard = document.createElement("li");
+      instructorCard.classList.add("list-item");
+
+      const instructorInformationContainer = document.createElement("div");
+      instructorInformationContainer.classList.add(
+        "list-item__information-container"
+      );
+      const instructorEnrollmentContainer = document.createElement("div");
+      instructorEnrollmentContainer.classList.add(
+        "list-item__enrollment-container"
+      );
+
+      const instructorInformationContent = document.createElement("div");
+      const instructorInformationTools = document.createElement("div");
+
+      const instructorEnrollmentContent = document.createElement("div");
+      const instructorEnrollmentTools = document.createElement("div");
+
+      const instructorFirstName = document.createElement("p");
+      instructorFirstName.textContent = instructor.firstName;
+      const instructorLastName = document.createElement("p");
+      instructorLastName.textContent = instructor.lastName;
+      const instructorEmail = document.createElement("p");
+      instructorEmail.textContent = instructor.email;
+      const instructorPhone = document.createElement("p");
+      instructorPhone.textContent = instructor.phone;
+      const instructorId = document.createElement("p");
+      instructorId.textContent = instructor.instructorId;
+
+      const editInstructorButton = document.createElement("button");
+      editInstructorButton.textContent = "edit";
+      const deleteInstructorButton = document.createElement("button");
+      deleteInstructorButton.textContent = "delete";
+
+      instructor.courses.forEach((course) => {
+        const selectedCourse = document.createElement("p");
+        selectedCourse.textContent = course.courseName + course.courseCode;
+        instructorEnrollmentContent.append(selectedCourse);
+      });
+
+      const instructorEnrollmentButton = document.createElement("button");
+      instructorEnrollmentButton.textContent = "Assign to course";
+
+      //appending elements
+
+      instructorList.append(instructorCard);
+
+      instructorCard.append(
+        instructorInformationContainer,
+        instructorEnrollmentContainer
+      );
+
+      instructorInformationContainer.append(
+        instructorInformationContent,
+        instructorInformationTools
+      );
+      instructorEnrollmentContainer.append(
+        instructorEnrollmentContent,
+        instructorEnrollmentTools
+      );
+
+      instructorInformationContent.append(
+        instructorFirstName,
+        instructorLastName,
+        instructorEmail,
+        instructorPhone,
+        instructorId
+      );
+      instructorInformationTools.append(
+        editInstructorButton,
+        deleteInstructorButton
+      );
+      instructorEnrollmentTools.append(instructorEnrollmentButton);
+    });
+  }
+
   static renderCourses(coursesCollection) {
     courseList.innerHTML = "";
     coursesCollection.forEach((course) => {
       //Creating content
       const courseCard = document.createElement("li");
+      courseCard.classList.add("list-item");
 
       const courseInformationContainer = document.createElement("div");
+      courseInformationContainer.classList.add(
+        "list-item__information-container"
+      );
       const courseEnrollmentContainer = document.createElement("div");
+      courseEnrollmentContainer.classList.add(
+        "list-item__enrollment-container"
+      );
 
       const courseInformationContent = document.createElement("div");
       const courseInformationTools = document.createElement("div");
@@ -309,7 +477,9 @@ class UI {
       courseCode.textContent = course.courseCode;
 
       const editCourseButton = document.createElement("button");
+      editCourseButton.textContent = "edit";
       const deleteCourseButton = document.createElement("button");
+      deleteCourseButton.textContent = "delete";
 
       //appending elements
 
