@@ -386,10 +386,14 @@ class UI {
       );
 
       const instructorInformationContent = document.createElement("div");
+      instructorInformationContent.classList.add("list-item__information");
       const instructorInformationTools = document.createElement("div");
+      instructorInformationTools.classList.add("list-item__tools");
 
       const instructorEnrollmentContent = document.createElement("div");
+      instructorEnrollmentContent.classList.add("list-item__information");
       const instructorEnrollmentTools = document.createElement("div");
+      instructorEnrollmentTools.classList.add("list-item__tools");
 
       const instructorFirstName = document.createElement("p");
       instructorFirstName.textContent = instructor.firstName;
@@ -466,7 +470,9 @@ class UI {
       );
 
       const courseInformationContent = document.createElement("div");
+      courseInformationContent.classList.add("list-item__information");
       const courseInformationTools = document.createElement("div");
+      courseInformationTools.classList.add("list-item__tools");
 
       const courseEnrollmentContent = document.createElement("div");
       const courseEnrollmentTools = document.createElement("div");
