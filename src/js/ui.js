@@ -6,6 +6,14 @@ const studentList = document.querySelector(".students-list");
 const instructorList = document.querySelector(".instructors-list");
 const courseList = document.querySelector(".courses-list");
 
+const assignModal = document.querySelector(".assign-modal");
+const assignModalContentContainer = document.querySelector(
+  ".assign-modal__content-container"
+);
+const assignModalHeader = document.querySelector(".assign-header");
+const assignModalBody = document.querySelector(".assign-body");
+const assignModalFooter = document.querySelector(".assign-footer");
+
 class UI {
   currentEditId = null;
 
@@ -27,6 +35,112 @@ class UI {
 
   static closeAddModal(formModal) {
     formModal.classList.remove("form-modal--display");
+  }
+
+  static openAssignModal(
+    assignModal,
+    assignModalContentContainer,
+    assignModalHeader,
+    assignModalBody,
+    assignModalFooter,
+    target,
+    id
+  ) {
+    assignModal.classList.add("assign-modal--display");
+    UI.renderAssignContent(
+      assignModalContentContainer,
+      assignModalHeader,
+      assignModalBody,
+      assignModalFooter,
+      target,
+      id
+    );
+  }
+
+  static closeAssignModal() {
+    assignModal.classList.remove("assign-modal--display");
+  }
+
+  static renderAssignContent(
+    //assignModalContentContainer,
+    assignModalHeader,
+    assignModalBody,
+    assignModalFooter,
+    target,
+    id
+  ) {
+    assignModalHeader.innerHTML = "";
+    assignModalBody.innerHTML = "";
+    assignModalFooter.innerHTML = "";
+
+    const assignContentHeading = document.createElement("h2");
+    assignContentHeading.textContent = `Assign ${
+      target === "students" ? "Student" : "Instructor"
+    } to Course`;
+
+    const courseListContainer = document.createElement("div");
+    //CLASS??????
+
+    const latestCourses = JSON.parse(localStorage.getItem("courses")) || [];
+    const studentsCollection =
+      JSON.parse(localStorage.getItem("students")) || [];
+    const student = studentsCollection.find((student) => student.id === id);
+
+    latestCourses.forEach((course) => {
+      const courseItem = document.createElement("div");
+      courseItem.classList.add("course-item");
+
+      const courseName = document.createElement("p");
+      courseName.textContent = `${course.courseName} (${course.courseCode})`;
+
+      const assignButton = document.createElement("button");
+      assignButton.textContent = "Assign";
+      assignButton.classList.add("assign-button");
+
+      if (target === "students") {
+        if (student.courses.length >= 3 || course.students.length >= 30) {
+          assignButton.disabled = true;
+        }
+      } else if (target === "instructors") {
+        if (course.instructor.length > 0) {
+          assignButton.disabled = true;
+        }
+      }
+
+      assignButton.addEventListener("click", (e) => {
+        e.preventDefault();
+        if (target === "students") {
+          course.student.push(student);
+          student.courses.push(course);
+        } else if (target === "instructors") {
+          const instructors =
+            JSON.parse(localStorage.getItem("instructors")) || [];
+          const instructor = instructors.find(
+            (instructor) => instructor.id === id
+          );
+          course.instructor.push(instructor);
+          instructor.courses.push(course);
+        }
+
+        localStorage.setItem("courses", JSON.stringify(latestCourses));
+        localStorage.setItem("students", JSON.stringify(studentsCollection));
+      });
+      courseItem.append(courseName, assignButton);
+      courseListContainer.append(courseItem);
+    });
+
+    const assignModalClose = document.createElement("button");
+    assignModalClose.textContent = "Cancel";
+    assignModalClose.classList.add("cancel-button");
+    // SET ATTRIBUTE?
+
+    assignModalClose.addEventListener("click", () => {
+      UI.closeAssignModal(assignModal);
+    });
+
+    assignModalHeader.append(assignContentHeading);
+    assignModalBody.append(courseListContainer);
+    assignModalFooter.append(assignModalClose);
   }
 
   static renderForm(formModal, formHeader, formBody, formFooter, target) {
@@ -366,6 +480,19 @@ class UI {
       );
       studentInformationTools.append(editStudentButton, deleteStudentButton);
       studentEnrollmentTools.append(studentEnrollmentButton);
+
+      //assigning event listeners
+      studentEnrollmentButton.addEventListener("click", () => {
+        this.openAssignModal(
+          assignModal,
+          assignModalContentContainer,
+          assignModalHeader,
+          assignModalBody,
+          assignModalFooter,
+          "students",
+          student.id
+        );
+      });
     });
   }
 
