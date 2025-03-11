@@ -513,6 +513,7 @@ class UI {
       // Add event listener
       deleteStudentButton.addEventListener("click", () => {
         UI.openDeleteModal(student.id, "student", student.firstName, student.lastName);
+      });
 
       //assigning event listeners
       studentEnrollmentButton.addEventListener("click", () => {

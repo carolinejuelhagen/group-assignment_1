@@ -2,43 +2,23 @@
 <html lang="en">
 	<head>
 		<meta charset="UTF-8" />
-		<meta
-			name="viewport"
-			content="width=device-width, initial-scale=1.0" />
-		<link
-			rel="stylesheet"
-			href="./src/css/reset.css" />
-		<link
-			rel="stylesheet"
-			href="./src/css/variables.css" />
-		<link
-			rel="stylesheet"
-			href="./src/css/style.css" />
-		<link
-			rel="stylesheet"
-			href="./src/css/navbar.css" />
-		<link
-			rel="stylesheet"
-			href="./src/css/displayList.css" />
-		<link
-			rel="stylesheet"
-			href="./src/css/form.css" />
-		<link
-			rel="stylesheet"
-			href="./src/css/assignModal.css" />
-     <link 
-      rel="stylesheet" 
-      href="./src/css/delete.css" />
-		<link
-			rel="stylesheet"
-			href="./src/css/footer.css" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="stylesheet" href="./src/css/reset.css" />
+		<link rel="stylesheet" href="./src/css/variables.css" />
+		<link rel="stylesheet" href="./src/css/style.css" />
+		<link rel="stylesheet" href="./src/css/navbar.css" />
+		<link rel="stylesheet" href="./src/css/displayList.css" />
+		<link rel="stylesheet" href="./src/css/form.css" />
+		<link rel="stylesheet" href="./src/css/delete.css" />
+		<link rel="stylesheet" href="./src/css/assignModal.css" />
+		<link rel="stylesheet" href="./src/css/footer.css" />
 		<title>Group assignment 1</title>
 	</head>
 	<body>
 		<header>
 			<div class="logo">
-				<a href="./index.html"
-					><svg
+				<a href="./index.html">
+					<svg
 						xmlns="http://www.w3.org/2000/svg"
 						height="24px"
 						viewBox="0 -960 960 960"
@@ -52,25 +32,13 @@
 			<nav class="navbar">
 				<ul class="navbar__links">
 					<li class="navbar__link">
-						<a
-							href="./src/pages/students.html"
-							data-target="students"
-							>Students</a
-						>
+						<a href="./src/pages/students.html" data-target="students">Students</a>
 					</li>
 					<li class="navbar__link">
-						<a
-							href="./src/pages/instructor.html"
-							data-target="instructors"
-							>Instructors</a
-						>
+						<a href="./src/pages/instructor.html" data-target="instructors">Instructors</a>
 					</li>
 					<li class="navbar__link">
-						<a
-							href="./src/pages/courses.html"
-							data-target="courses"
-							>Courses</a
-						>
+						<a href="./src/pages/courses.html" data-target="courses">Courses</a>
 					</li>
 				</ul>
 			</nav>
@@ -78,18 +46,12 @@
 		<main>
 			<section class="content-section content-section--active">
 				<h1>Welcome</h1>
-				<h2>
-					Please select a category in the links above to begin registration
-				</h2>
+				<h2>Please select a category in the links above to begin registration</h2>
 			</section>
 
-			<section
-				class="content-section"
-				id="students">
+			<section class="content-section" id="students">
 				<div class="add-container">
-					<button
-						class="add-button"
-						data-target="students">
+					<button class="add-button" data-target="students">
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
 							height="24px"
@@ -101,20 +63,14 @@
 						</svg>
 					</button>
 				</div>
-				<div
-					class="list-container"
-					id="students-list">
+				<div class="list-container" id="students-list">
 					<ul class="list students-list"></ul>
 				</div>
 			</section>
 
-			<section
-				class="content-section"
-				id="instructors">
+			<section class="content-section" id="instructors">
 				<div class="add-container">
-					<button
-						class="add-button"
-						data-target="instructors">
+					<button class="add-button" data-target="instructors">
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
 							height="24px"
@@ -126,20 +82,14 @@
 						</svg>
 					</button>
 				</div>
-				<div
-					class="list-container"
-					id="instructors-list">
+				<div class="list-container" id="instructors-list">
 					<ul class="list instructors-list"></ul>
 				</div>
 			</section>
 
-			<section
-				class="content-section"
-				id="courses">
+			<section class="content-section" id="courses">
 				<div class="add-container">
-					<button
-						class="add-button"
-						data-target="courses">
+					<button class="add-button" data-target="courses">
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
 							height="24px"
@@ -151,74 +101,39 @@
 						</svg>
 					</button>
 				</div>
-				<div
-					class="list-container"
-					id="courses-list">
+				<div class="list-container" id="courses-list">
 					<ul class="list courses-list"></ul>
 				</div>
 			</section>
 		</main>
-
-
 		<!-- form modal -->
 		<div class="form-modal">
 			<form class="form">
-				<div class="form-header">
-					<!-- <h2>Register new student</h2> -->
-				</div>
-				<div class="form-body">
-					<!-- <div class="form-group">
-            <label for="firstname">Enter first name</label>
-            <input type="text" class="input" placeholder="First Name" />
-          </div>
-          <div class="form-group">
-            <label for="lastname">Enter last name</label>
-            <input type="text" class="input" placeholder="Last Name" />
-          </div>
-          <div class="form-group">
-            <label for="email">Enter e-mail</label>
-            <input type="email" class="input" placeholder="Email" />
-          </div>
-          <div class="form-group">
-            <label for="phone">Enter phone number</label>
-            <input type="tel" class="input" placeholder="Phone" />
-          </div> -->
-				</div>
-
-				<div class="form-footer">
-					<!-- <button type="submit" class="submit-button">Register</button>
-          <button type="button" class="cancel-button">
-            Cancel Registration
-          </button> -->
-				</div>
+				<div class="form-header"></div>
+				<div class="form-body"></div>
+				<div class="form-footer"></div>
 			</form>
 		</div>
 
-
-
-    <!-- delete modal -->
-    <div class="delete-modal">
-      <div class="delete-modal-content">
-        <p class="delete-message"></p>
-        <div class="delete-buttons-container">
-          <button class="cancel-delete">Cancel</button>
-          <button class="confirm-delete">Delete</button>
-        </div>
-    	</div>
+    	<!-- delete modal -->
+    	<div class="delete-modal">
+      		<div class="delete-modal-content">
+        		<p class="delete-message"></p>
+        		<div class="delete-buttons-container">
+          			<button class="cancel-delete">Cancel</button>
+          			<button class="confirm-delete">Delete</button>
+        		</div>
+    		</div>
 		</div>
 
-		
-
-
-    <!-- Assign Modal -->
-    <div class="assign-modal">
-      <div class="assign-modal__content-container">
-        <div class="assign-header"></div>
-        <div class="assign-body"></div>
-        <div class="assign-footer"></div>
-      </div>
-    </div>
-
+    	<!-- Assign Modal -->
+    	<div class="assign-modal">
+      		<div class="assign-modal__content-container">
+       			<div class="assign-header"></div>
+        		<div class="assign-body"></div>
+        		<div class="assign-footer"></div>
+      		</div>
+    	</div>
 
 		<footer class="footer">
 			<p class="footer__paragraph">
@@ -233,9 +148,6 @@
 				>.
 			</p>
 		</footer>
-		<script
-			type="module"
-			src="./src/js/app.js"></script>
+		<script type="module" src="./src/js/app.js"></script>
 	</body>
-
 </html>
