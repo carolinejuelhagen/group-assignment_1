@@ -29,6 +29,35 @@ class UI {
     formModal.classList.remove("form-modal--display");
   }
 
+  static openDeleteModal(id, type, firstName, lastName) {
+    const deleteModal = document.querySelector(".delete-modal");
+    deleteModal.classList.add("delete-modal--display");
+    const deleteMessage = document.querySelector(".delete-message");
+    const confirmDeleteButton = document.querySelector(".confirm-delete");
+
+    deleteMessage.textContent = type === "course" ? `Are you sure you want to proceed?` : `Are you sure you want to delete ${firstName} ${lastName}?`;
+
+    confirmDeleteButton.addEventListener("click", () => {
+      if (type === "student") {
+        StudentManager.deleteStudent(id);
+      } else if (type === "instructor") {
+        InstructorManager.deleteInstructor(id);
+      } else if (type === "course") {
+        CourseManager.deleteCourse(id);
+      }
+      deleteModal.classList.remove("delete-modal--display");
+    });
+  };
+  
+  static closeDeleteModal() {
+    const deleteModal = document.querySelector(".delete-modal");
+    const cancelDeleteButton = document.querySelector(".cancel-delete");
+
+    cancelDeleteButton.addEventListener("click", () => {
+      deleteModal.classList.remove("delete-modal--display");
+    });
+  };
+
   static renderForm(formModal, formHeader, formBody, formFooter, target) {
     formHeader.innerHTML = "";
     formBody.innerHTML = "";
@@ -366,6 +395,11 @@ class UI {
       );
       studentInformationTools.append(editStudentButton, deleteStudentButton);
       studentEnrollmentTools.append(studentEnrollmentButton);
+
+      // Add event listener
+      deleteStudentButton.addEventListener("click", () => {
+        UI.openDeleteModal(student.id, "student", student.firstName, student.lastName);
+      });
     });
   }
 
@@ -450,6 +484,11 @@ class UI {
         deleteInstructorButton
       );
       instructorEnrollmentTools.append(instructorEnrollmentButton);
+
+      // Add event listener
+      deleteInstructorButton.addEventListener("click", () => {
+        UI.openDeleteModal(instructor.id, "instructor", instructor.firstName, instructor.lastName);
+      });
     });
   }
 
@@ -504,6 +543,10 @@ class UI {
 
       courseInformationContent.append(courseName, courseCode);
       courseInformationTools.append(editCourseButton, deleteCourseButton);
+
+      deleteCourseButton.addEventListener("click", () => {
+        UI.openDeleteModal(course.id, "course");
+      });
     });
   }
 }

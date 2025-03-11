@@ -1,0 +1,48 @@
+.delete-modal {
+    display: none;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    z-index: 100;
+    top: 0;
+    left: 0;
+    background-color: var(--modal-overlay-background);
+}
+
+.delete-modal-content {
+    width: 50%;
+    min-width: 350px;
+    height: 25%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: var(--spacing-medium);
+    padding: var(--spacing-small);
+    border-radius: var(--border-radius-small);
+    border: 2px solid var(--color-background-dark);
+    background-color: var(--color-background-medium);
+}
+
+.delete-message {
+    font-family: Lato-Regular, sans-serif;
+    font-size: var(--font-size-base);
+}
+
+.delete-buttons-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: var(--spacing-medium);
+}
+
+.cancel-delete {
+    border: none;
+    background-color: transparent;
+}
+
+.delete-modal--display {
+    display: flex;
+}

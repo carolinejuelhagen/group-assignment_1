@@ -52,7 +52,9 @@ document.addEventListener("DOMContentLoaded", () => {
         UI.renderInstructors(latestInstructorCollection);
       }
     });
+    UI.closeDeleteModal();
   });
+
   addButtons.forEach((button) => {
     button.addEventListener("click", (e) => {
       const target = e.currentTarget.getAttribute("data-target");

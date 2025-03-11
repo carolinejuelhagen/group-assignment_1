@@ -17,6 +17,17 @@ class StudentManager {
   static storeStudents(collection) {
     localStorage.setItem("students", JSON.stringify(collection));
   }
+
+  static deleteStudent(id) {
+    const lastestStudentCollection =
+      JSON.parse(localStorage.getItem("students")) || [];
+    StudentManager.studentsCollection = lastestStudentCollection.filter((student) => {
+      return student.id !== id;
+    });
+
+    StudentManager.storeStudents(StudentManager.studentsCollection);
+    UI.renderStudents();
+  }
 }
 
 export default StudentManager;
