@@ -79,3 +79,12 @@ input {
   border-radius: var(--border-radius-small);
   border: 1px solid var(--color-background-dark);
 }
+
+.invalid-input {
+  border: 1px solid var(--validation-border);
+}
+
+.form__validation-message {
+  display: none;
+  color: var(--text-validation-message);
+}
