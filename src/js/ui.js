@@ -315,15 +315,15 @@ class UI {
       studentEnrollmentTools.classList.add("list-item__tools");
 
       const studentFirstName = document.createElement("p");
-      studentFirstName.textContent = student.firstName;
+      studentFirstName.textContent = `First Name: ${student.firstName}`;
       const studentLastName = document.createElement("p");
-      studentLastName.textContent = student.lastName;
+      studentLastName.textContent = `Last Name: ${student.lastName}`;
       const studentEmail = document.createElement("p");
-      studentEmail.textContent = student.email;
+      studentEmail.textContent = `E-mail: ${student.email}`;
       const studentPhone = document.createElement("p");
-      studentPhone.textContent = student.phone;
+      studentPhone.textContent = `Phone Number: ${student.phone}`;
       const studentId = document.createElement("p");
-      studentId.textContent = student.studentId;
+      studentId.textContent = `Student ID: ${student.studentId}`;
 
       const editStudentButton = document.createElement("button");
       editStudentButton.textContent = "edit";
@@ -396,15 +396,15 @@ class UI {
       instructorEnrollmentTools.classList.add("list-item__tools");
 
       const instructorFirstName = document.createElement("p");
-      instructorFirstName.textContent = instructor.firstName;
+      instructorFirstName.textContent = `First Name: ${instructor.firstName}`;
       const instructorLastName = document.createElement("p");
-      instructorLastName.textContent = instructor.lastName;
+      instructorLastName.textContent = `Last Name: ${instructor.lastName}`;
       const instructorEmail = document.createElement("p");
-      instructorEmail.textContent = instructor.email;
+      instructorEmail.textContent = `E-mail: ${instructor.email}`;
       const instructorPhone = document.createElement("p");
-      instructorPhone.textContent = instructor.phone;
+      instructorPhone.textContent = `Phone number: ${instructor.phone}`;
       const instructorId = document.createElement("p");
-      instructorId.textContent = instructor.instructorId;
+      instructorId.textContent = `Faculty ID: ${instructor.instructorId}`;
 
       const editInstructorButton = document.createElement("button");
       editInstructorButton.textContent = "edit";
@@ -478,9 +478,9 @@ class UI {
       const courseEnrollmentTools = document.createElement("div");
 
       const courseName = document.createElement("p");
-      courseName.textContent = course.courseName;
+      courseName.textContent = `Course Name: ${course.courseName}`;
       const courseCode = document.createElement("p");
-      courseCode.textContent = course.courseCode;
+      courseCode.textContent = `Course Code: ${course.courseCode}`;
 
       const editCourseButton = document.createElement("button");
       editCourseButton.textContent = "edit";
