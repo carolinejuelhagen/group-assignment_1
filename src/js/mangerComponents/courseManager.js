@@ -1,4 +1,5 @@
 import Course from "../course.js";
+import UI from "../ui.js";
 
 class CourseManager {
   static courseCollection = JSON.parse(localStorage.getItem("courses")) || [];
@@ -14,6 +15,17 @@ class CourseManager {
 
   static storeCourses(collection) {
     localStorage.setItem("courses", JSON.stringify(collection));
+  }
+
+  static deleteCourse(id) {
+    const lastestCourseCollection =
+      JSON.parse(localStorage.getItem("courses")) || [];
+    CourseManager.courseCollection = lastestCourseCollection.filter((course) => {
+      return course.id !== id;
+    });
+
+    CourseManager.storeCourses(CourseManager.courseCollection);
+    UI.renderCourses();
   }
 }
 export default CourseManager;

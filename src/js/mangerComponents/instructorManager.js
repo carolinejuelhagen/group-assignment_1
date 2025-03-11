@@ -1,5 +1,6 @@
 import Instructor from "../instructor.js";
 import UI from "../ui.js";
+
 class InstructorManager {
   static instructorCollection =
     JSON.parse(localStorage.getItem("instructors")) || [];
@@ -21,6 +22,17 @@ class InstructorManager {
 
   static storeInstructors(collection) {
     localStorage.setItem("instructors", JSON.stringify(collection));
+  }
+
+  static deleteInstructor(id) {
+    const lastestInstructorCollection =
+      JSON.parse(localStorage.getItem("instructors")) || [];
+    InstructorManager.instructorCollection = lastestInstructorCollection.filter((instructor) => {
+      return instructor.id !== id;
+    });
+
+    InstructorManager.storeInstructors(InstructorManager.instructorCollection);
+    UI.renderInstructors();
   }
 }
 
