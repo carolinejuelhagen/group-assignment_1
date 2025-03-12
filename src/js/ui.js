@@ -1,10 +1,12 @@
 import StudentManager from "./mangerComponents/studentManager.js";
 import InstructorManager from "./mangerComponents/instructorManager.js";
 import CourseManager from "./mangerComponents/courseManager.js";
+import Validation from "./validation.js";
 
 const studentList = document.querySelector(".students-list");
 const instructorList = document.querySelector(".instructors-list");
 const courseList = document.querySelector(".courses-list");
+const validationMessage = document.querySelector(".form__validation-message");
 
 const assignModal = document.querySelector(".assign-modal");
 const assignModalContentContainer = document.querySelector(
@@ -259,18 +261,22 @@ class UI {
       formFooter.append(studentSubmitButton, formModalClose);
 
       //Adding event listeners
-      formModalClose.addEventListener("click", (e) => {
-        UI.closeAddModal(formModal);
-      });
       studentSubmitButton.addEventListener("click", (e) => {
         e.preventDefault();
-
+        if (!Validation.validateForm("students", validationMessage)) {
+          return;
+        };
         StudentManager.addStudent(
           studentFirstNameInput.value.trim(),
           studentLastNameInput.value.trim(),
           studentEmailInput.value.trim(),
           studentPhoneInput.value.trim()
         );
+      });
+
+      formModalClose.addEventListener("click", (e) => {
+        UI.closeAddModal(formModal);
+        validationMessage.style.display = "none";
       });
     } else if (target === "instructors") {
       const instructorFormHeading = document.createElement("h2");
@@ -359,6 +365,9 @@ class UI {
       //adding event listeners
       instructorSubmitButton.addEventListener("click", (e) => {
         e.preventDefault();
+        if (!Validation.validateForm("instructor", validationMessage)) {
+          return;
+        };
         InstructorManager.addInstructor(
           instructorFirstNameInput.value.trim(),
           instructorLastNameInput.value.trim(),
@@ -369,6 +378,7 @@ class UI {
 
       formModalClose.addEventListener("click", () => {
         UI.closeAddModal(formModal);
+        validationMessage.style.display = "none";
       });
     } else if (target === "courses") {
       const courseFormHeading = document.createElement("h2");
@@ -419,6 +429,9 @@ class UI {
 
       courseSubmitButton.addEventListener("click", (e) => {
         e.preventDefault();
+        if (!Validation.validateForm("course", validationMessage)) {
+          return;
+        };
         CourseManager.addCourse(
           courseNameInput.value.trim(),
           courseCodeInput.value.trim()
@@ -427,9 +440,10 @@ class UI {
 
       formModalClose.addEventListener("click", () => {
         UI.closeAddModal(formModal);
+        validationMessage.style.display = "none";
       });
-    }
-  }
+    };
+  };
 
   static renderStudents(studentsCollection) {
     studentList.innerHTML = "";
@@ -448,7 +462,7 @@ class UI {
       );
 
       const studentInformationContent = document.createElement("div");
-      studentInformationContent.classList.add("list-iten__information");
+      studentInformationContent.classList.add("list-item__information");
       const studentInformationTools = document.createElement("div");
       studentInformationTools.classList.add("list-item__tools");
 

@@ -4,12 +4,15 @@
     --color-background-medium: #b4d7f5;
     --color-background-dark: #040f1a;
 
+    --button-color: hsl(35, 21%, 90%);
+
     --modal-overlay-background: rgba(0, 0, 0, 0.2);
 
     --text-color-light: #edf5fc;
     --text-color-dark: #040f1a;
 
-    --text-validation-message: #ff0000;
+    --validation-border: #f6510b;
+    --text-validation-message: #f6510b;
 
     /* SPACING */
     --spacing-x-small: 0.25rem;
@@ -19,7 +22,7 @@
     --spacing-x-large: 3rem;
 
     /* FONT SIZE */
-    --font-size-small: 0.5rem;
+    --font-size-small: 0.75rem;
     --font-size-base: 1rem;
     --font-size-medium: 1.2rem;
     --font-size-large: 1.5rem;

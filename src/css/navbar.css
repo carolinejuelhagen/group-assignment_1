@@ -1,5 +1,6 @@
 header {
   width: 100%;
+  min-width: 350px;
   height: fit-content;
   display: flex;
   padding: var(--spacing-medium);
@@ -43,4 +44,24 @@ header {
   opacity: 80%;
   text-decoration: underline;
   text-underline-offset: 8px;
+}
+
+@media screen and (max-width: 768px){
+  .navbar__links {
+    gap: var(--spacing-large);
+  }
+
+  .navbar__link a {
+    font-size: var(--font-size-medium);
+  }
+}
+
+@media screen and (max-width: 480px){
+  .logo svg {
+    width: 36px;
+  }
+
+  .navbar__links {
+    gap: var(--spacing-medium);
+  }
 }
