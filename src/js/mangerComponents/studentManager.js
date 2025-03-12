@@ -5,29 +5,51 @@ class StudentManager {
   static studentsCollection =
     JSON.parse(localStorage.getItem("students")) || [];
 
+  // Add
   static addStudent(firstName, lastName, email, phone, studentId) {
-    const lastestStudentCollection =
+    const latestStudentCollection =
       JSON.parse(localStorage.getItem("students")) || [];
     let student = new Student(firstName, lastName, email, phone, studentId);
-    lastestStudentCollection.push(student);
-    StudentManager.storeStudents(lastestStudentCollection);
-    StudentManager.studentsCollection = lastestStudentCollection;
+    latestStudentCollection.push(student);
+    StudentManager.storeStudents(latestStudentCollection);
+    StudentManager.studentsCollection = latestStudentCollection;
   }
 
+  // Store
   static storeStudents(collection) {
     localStorage.setItem("students", JSON.stringify(collection));
   }
 
+  // Delete
   static deleteStudent(id) {
-    const lastestStudentCollection =
+    const latestStudentCollection =
       JSON.parse(localStorage.getItem("students")) || [];
-    StudentManager.studentsCollection = lastestStudentCollection.filter((student) => {
+    StudentManager.studentsCollection = latestStudentCollection.filter((student) => {
       return student.id !== id;
     });
 
     StudentManager.storeStudents(StudentManager.studentsCollection);
     UI.renderStudents();
   }
-}
+
+  // Edit
+  static editStudent(id, firstName, lastName, email, phone) {
+    const latestStudentCollection = JSON.parse(localStorage.getItem("students"));
+    const studentIndex = latestStudentCollection.findIndex(student => student.id === id);
+
+    if (studentIndex !== -1) {
+      latestStudentCollection[studentIndex] = {
+        id,
+        firstName,
+        lastName,
+        email,
+        phone
+      };
+      StudentManager.storeStudents(latestStudentCollection);
+      StudentManager.studentsCollection = latestStudentCollection;
+      UI.renderStudents(); 
+    };
+  };
+};
 
 export default StudentManager;

@@ -4,6 +4,7 @@ import UI from "../ui.js";
 class CourseManager {
   static courseCollection = JSON.parse(localStorage.getItem("courses")) || [];
 
+  // Add 
   static addCourse(courseName, courseCode) {
     const latestCourseCollection =
       JSON.parse(localStorage.getItem("courses")) || [];
@@ -11,12 +12,14 @@ class CourseManager {
     latestCourseCollection.push(course);
     CourseManager.storeCourses(latestCourseCollection);
     CourseManager.courseCollection = latestCourseCollection;
-  }
+  };
 
+  // Store
   static storeCourses(collection) {
     localStorage.setItem("courses", JSON.stringify(collection));
-  }
+  };
 
+  // Delete
   static deleteCourse(id) {
     const lastestCourseCollection =
       JSON.parse(localStorage.getItem("courses")) || [];
@@ -26,6 +29,23 @@ class CourseManager {
 
     CourseManager.storeCourses(CourseManager.courseCollection);
     UI.renderCourses();
-  }
-}
+  };
+
+  // Edit
+  static editCourse(id, courseName, courseCode) {
+    const latestCourseCollection = JSON.parse(localStorage.getItem("courses"));
+    const courseIndex = latestCourseCollection.findIndex(course => course.id === id);
+    if (courseIndex !== -1) {
+      latestCourseCollection[courseIndex] = {
+        id,
+        courseName,
+        courseCode
+      };
+      CourseManager.storeCourses(latestCourseCollection);
+      CourseManager.courseCollection = latestCourseCollection;
+      UI.renderCourses();
+    };
+  };
+};
+
 export default CourseManager;
