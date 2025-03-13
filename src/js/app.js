@@ -52,8 +52,9 @@ document.addEventListener("DOMContentLoaded", () => {
         UI.renderInstructors(latestInstructorCollection);
       }
     });
-    UI.closeDeleteModal();
   });
+  
+  UI.closeDeleteModal();
 
   addButtons.forEach((button) => {
     button.addEventListener("click", (e) => {
