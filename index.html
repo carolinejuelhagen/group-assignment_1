@@ -1,154 +1,169 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<link rel="stylesheet" href="./src/css/reset.css" />
-		<link rel="stylesheet" href="./src/css/variables.css" />
-		<link rel="stylesheet" href="./src/css/style.css" />
-		<link rel="stylesheet" href="./src/css/navbar.css" />
-		<link rel="stylesheet" href="./src/css/displayList.css" />
-		<link rel="stylesheet" href="./src/css/form.css" />
-		<link rel="stylesheet" href="./src/css/delete.css" />
-		<link rel="stylesheet" href="./src/css/assignModal.css" />
-		<link rel="stylesheet" href="./src/css/footer.css" />
-		<title>Group assignment 1</title>
-	</head>
-	<body>
-		<header>
-			<div class="logo">
-				<a href="./index.html">
-					<svg
-						xmlns="http://www.w3.org/2000/svg"
-						height="24px"
-						viewBox="0 -960 960 960"
-						width="24px"
-						fill="#000000">
-						<path
-							d="M480-120 200-272v-240L40-600l440-240 440 240v320h-80v-276l-80 44v240L480-120Zm0-332 274-148-274-148-274 148 274 148Zm0 241 200-108v-151L480-360 280-470v151l200 108Zm0-241Zm0 90Zm0 0Z" />
-					</svg>
-				</a>
-			</div>
-			<nav class="navbar">
-				<ul class="navbar__links">
-					<li class="navbar__link">
-						<a href="./src/pages/students.html" data-target="students">Students</a>
-					</li>
-					<li class="navbar__link">
-						<a href="./src/pages/instructor.html" data-target="instructors">Instructors</a>
-					</li>
-					<li class="navbar__link">
-						<a href="./src/pages/courses.html" data-target="courses">Courses</a>
-					</li>
-				</ul>
-			</nav>
-		</header>
-		<main>
-			<section class="content-section content-section--active">
-				<h1>Welcome</h1>
-				<h2>Please select a category in the links above to begin registration</h2>
-			</section>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./src/css/reset.css" />
+    <link rel="stylesheet" href="./src/css/variables.css" />
+    <link rel="stylesheet" href="./src/css/style.css" />
+    <link rel="stylesheet" href="./src/css/navbar.css" />
+    <link rel="stylesheet" href="./src/css/displayList.css" />
+    <link rel="stylesheet" href="./src/css/form.css" />
+    <link rel="stylesheet" href="./src/css/delete.css" />
+    <link rel="stylesheet" href="./src/css/assignModal.css" />
+    <link rel="stylesheet" href="./src/css/footer.css" />
+    <title>Group assignment 1</title>
+  </head>
+  <body>
+    <header>
+      <div class="logo">
+        <a href="./index.html">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            height="24px"
+            viewBox="0 -960 960 960"
+            width="24px"
+            fill="#000000"
+          >
+            <path
+              d="M480-120 200-272v-240L40-600l440-240 440 240v320h-80v-276l-80 44v240L480-120Zm0-332 274-148-274-148-274 148 274 148Zm0 241 200-108v-151L480-360 280-470v151l200 108Zm0-241Zm0 90Zm0 0Z"
+            />
+          </svg>
+        </a>
+      </div>
+      <nav class="navbar">
+        <ul class="navbar__links">
+          <li class="navbar__link">
+            <a href="./src/pages/students.html" data-target="students"
+              >Students</a
+            >
+          </li>
+          <li class="navbar__link">
+            <a href="./src/pages/instructor.html" data-target="instructors"
+              >Instructors</a
+            >
+          </li>
+          <li class="navbar__link">
+            <a href="./src/pages/courses.html" data-target="courses">Courses</a>
+          </li>
+        </ul>
+      </nav>
+    </header>
+    <main>
+      <section class="content-section content-section--active">
+        <h1>Welcome</h1>
+        <h2>
+          Please select a category in the links above to begin registration
+        </h2>
+      </section>
 
-			<section class="content-section" id="students">
-				<div class="add-container">
-					<button class="add-button" data-target="students">
-						<svg
-							xmlns="http://www.w3.org/2000/svg"
-							height="24px"
-							viewBox="0 -960 960 960"
-							width="24px"
-							fill="#040f1a">
-							<path
-								d="M440-440H200v-80h240v-240h80v240h240v80H520v240h-80v-240Z" />
-						</svg>
-					</button>
-				</div>
-				<div class="list-container" id="students-list">
-					<ul class="list students-list"></ul>
-				</div>
-			</section>
+      <section class="content-section" id="students">
+        <div class="add-container">
+          <button class="add-button" data-target="students">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              height="24px"
+              viewBox="0 -960 960 960"
+              width="24px"
+              fill="#040f1a"
+            >
+              <path
+                d="M440-440H200v-80h240v-240h80v240h240v80H520v240h-80v-240Z"
+              />
+            </svg>
+          </button>
+        </div>
+        <div class="list-container" id="students-list">
+          <ul class="list students-list"></ul>
+        </div>
+      </section>
 
-			<section class="content-section" id="instructors">
-				<div class="add-container">
-					<button class="add-button" data-target="instructors">
-						<svg
-							xmlns="http://www.w3.org/2000/svg"
-							height="24px"
-							viewBox="0 -960 960 960"
-							width="24px"
-							fill="#040f1a">
-							<path
-								d="M440-440H200v-80h240v-240h80v240h240v80H520v240h-80v-240Z" />
-						</svg>
-					</button>
-				</div>
-				<div class="list-container" id="instructors-list">
-					<ul class="list instructors-list"></ul>
-				</div>
-			</section>
+      <section class="content-section" id="instructors">
+        <div class="add-container">
+          <button class="add-button" data-target="instructors">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              height="24px"
+              viewBox="0 -960 960 960"
+              width="24px"
+              fill="#040f1a"
+            >
+              <path
+                d="M440-440H200v-80h240v-240h80v240h240v80H520v240h-80v-240Z"
+              />
+            </svg>
+          </button>
+        </div>
+        <div class="list-container" id="instructors-list">
+          <ul class="list instructors-list"></ul>
+        </div>
+      </section>
 
-			<section class="content-section" id="courses">
-				<div class="add-container">
-					<button class="add-button" data-target="courses">
-						<svg
-							xmlns="http://www.w3.org/2000/svg"
-							height="24px"
-							viewBox="0 -960 960 960"
-							width="24px"
-							fill="#040f1a">
-							<path
-								d="M440-440H200v-80h240v-240h80v240h240v80H520v240h-80v-240Z" />
-						</svg>
-					</button>
-				</div>
-				<div class="list-container" id="courses-list">
-					<ul class="list courses-list"></ul>
-				</div>
-			</section>
-		</main>
-		<!-- form modal -->
-		<div class="form-modal">
-			<form class="form">
-				<div class="form-header"></div>
-				<div class="form-body"></div>
-				<p class="form__validation-message"></p>
-				<div class="form-footer"></div>
-			</form>
-		</div>
+      <section class="content-section" id="courses">
+        <div class="add-container">
+          <button class="add-button" data-target="courses">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              height="24px"
+              viewBox="0 -960 960 960"
+              width="24px"
+              fill="#040f1a"
+            >
+              <path
+                d="M440-440H200v-80h240v-240h80v240h240v80H520v240h-80v-240Z"
+              />
+            </svg>
+          </button>
+        </div>
+        <div class="list-container" id="courses-list">
+          <ul class="list courses-list"></ul>
+        </div>
+      </section>
+    </main>
+    <!-- form modal -->
+    <div class="form-modal">
+      <form class="form">
+        <div class="form-header"></div>
+        <div class="form-body"></div>
+        <p class="form__validation-message"></p>
+        <div class="form-footer"></div>
+      </form>
+    </div>
 
-    	<!-- delete modal -->
-    	<div class="delete-modal">
-      		<div class="delete-modal-content">
-        		<p class="delete-message"></p>
-        		<div class="delete-buttons-container">
-          			<button class="cancel-delete">Cancel</button>
-          			<button class="confirm-delete">Delete</button>
-        		</div>
-    		</div>
-		</div>
+    <!-- delete modal -->
+    <div class="delete-modal">
+      <div class="delete-modal-content">
+        <p class="delete-message"></p>
+        <div class="delete-buttons-container">
+          <button class="cancel-delete">Cancel</button>
+          <button class="confirm-delete">Delete</button>
+        </div>
+      </div>
+    </div>
 
-    	<!-- Assign Modal -->
-    	<div class="assign-modal">
-      		<div class="assign-modal__content-container">
-       			<div class="assign-header"></div>
-        		<div class="assign-body"></div>
-        		<div class="assign-footer"></div>
-      		</div>
-    	</div>
+    <!-- Assign Modal -->
+    <div class="assign-modal">
+      <div class="assign-modal__content-container">
+        <div class="assign-header"></div>
+        <ul class="assign-body"></ul>
+        <div class="assign-footer"></div>
+      </div>
+    </div>
 
-		<footer class="footer">
-			<p class="footer__paragraph">
-				&copy; 2025 ECJD. Licensed under the
-				<a
-					class="footer__link"
-					href="./public/License.txt"
-					target="_blank"
-					rel="noopener noreferrer"
-					aria-label="View the MIT License details">
-					MIT License </a
-				>.
-			</p>
-		</footer>
-		<script type="module" src="./src/js/app.js"></script>
-	</body>
+    <footer class="footer">
+      <p class="footer__paragraph">
+        &copy; 2025 ECJD. Licensed under the
+        <a
+          class="footer__link"
+          href="./public/License.txt"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="View the MIT License details"
+        >
+          MIT License </a
+        >.
+      </p>
+    </footer>
+    <script type="module" src="./src/js/app.js"></script>
+  </body>
 </html>

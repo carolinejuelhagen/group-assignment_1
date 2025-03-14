@@ -45,11 +45,11 @@ document.addEventListener("DOMContentLoaded", () => {
       } else if (target === "students") {
         const latestStudentCollection =
           JSON.parse(localStorage.getItem("students")) || [];
-        UI.renderStudents(latestStudentCollection);
+        UI.renderStudents(latestStudentCollection, target);
       } else if (target === "instructors") {
         const latestInstructorCollection =
           JSON.parse(localStorage.getItem("instructors")) || [];
-        UI.renderInstructors(latestInstructorCollection);
+        UI.renderInstructors(latestInstructorCollection, target);
       }
     });
     UI.closeDeleteModal();
