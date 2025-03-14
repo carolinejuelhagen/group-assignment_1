@@ -5,15 +5,10 @@ const navbarLinks = document.querySelectorAll(".navbar__link a");
 const contentSections = document.querySelectorAll(".content-section");
 const addButtons = document.querySelectorAll(".add-button");
 
-// const displayContainers = document.querySelectorAll(".list-container");
-
 const formModal = document.querySelector(".form-modal");
 const formHeader = document.querySelector(".form-header");
 const formBody = document.querySelector(".form-body");
 const formFooter = document.querySelector(".form-footer");
-
-//const formSubmit = document.querySelector(".submit-button");
-//const formModalClose = document.querySelector(".cancel-button");
 
 const deleteModal = document.querySelector(".delete-modal");
 const deleteMessage = document.querySelector(".delete-message");
@@ -26,12 +21,10 @@ document.addEventListener("DOMContentLoaded", () => {
     link.addEventListener("click", (e) => {
       e.preventDefault();
 
-      // Remove active class from ALL links
       navbarLinks.forEach((link) => {
         link.classList.remove("navbar__link--active");
       });
 
-      // Add active class to CLICKED LINK'S PARENT <li>
       e.currentTarget.classList.add("navbar__link--active");
 
       const target = e.currentTarget.getAttribute("data-target");
@@ -41,7 +34,7 @@ document.addEventListener("DOMContentLoaded", () => {
       if (target === "courses") {
         const latestCourseCollection =
           JSON.parse(localStorage.getItem("courses")) || [];
-        UI.renderCourses(latestCourseCollection);
+        UI.renderCourses(latestCourseCollection, target);
       } else if (target === "students") {
         const latestStudentCollection =
           JSON.parse(localStorage.getItem("students")) || [];
@@ -53,7 +46,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
   });
-  
+
   UI.closeDeleteModal();
 
   addButtons.forEach((button) => {

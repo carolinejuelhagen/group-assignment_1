@@ -31,7 +31,7 @@ class UI {
     });
   }
 
-  // Add 
+  // Add
   static openAddModal(formModal, formHeader, formBody, formFooter, target) {
     formModal.classList.add("form-modal--display");
 
@@ -73,18 +73,13 @@ class UI {
     cancelDeleteButton.addEventListener("click", () => {
       deleteModal.classList.remove("delete-modal--display");
     });
-
   }
-
-
-
-  };
 
   // Edit
   static openEditModal() {
     const formModal = document.querySelector(".form-modal");
     formModal.classList.add("form-modal--display");
-  };
+  }
 
   static populateEditForm(id, type) {
     setTimeout(() => {
@@ -102,11 +97,13 @@ class UI {
       submitButton.textContent = "Confirm edit";
       const cancelButton = document.querySelector(".cancel-button");
       cancelButton.textContent = "Cancel edit";
-      
+
       if (type === "students") {
-        formHeading.textContent = "Edit student"
+        formHeading.textContent = "Edit student";
         const studentsCollection = JSON.parse(localStorage.getItem("students"));
-        const studentToEdit = studentsCollection.find(student => student.id === id);
+        const studentToEdit = studentsCollection.find(
+          (student) => student.id === id
+        );
         if (studentToEdit) {
           firstName.value = studentToEdit.firstName;
           lastName.value = studentToEdit.lastName;
@@ -115,8 +112,12 @@ class UI {
         }
       } else if (type === "instructors") {
         formHeading.textContent = "Edit instructor";
-        const instructorCollection = JSON.parse(localStorage.getItem("instructors"));
-        const instructorToEdit = instructorCollection.find(instructor => instructor.id === id);
+        const instructorCollection = JSON.parse(
+          localStorage.getItem("instructors")
+        );
+        const instructorToEdit = instructorCollection.find(
+          (instructor) => instructor.id === id
+        );
         if (instructorToEdit) {
           firstName.value = instructorToEdit.firstName;
           lastName.value = instructorToEdit.lastName;
@@ -126,22 +127,22 @@ class UI {
       } else if (type === "courses") {
         formHeading.textContent = "Edit course";
         const courseCollection = JSON.parse(localStorage.getItem("courses"));
-        const courseToEdit = courseCollection.find(course => course.id === id);
+        const courseToEdit = courseCollection.find(
+          (course) => course.id === id
+        );
         if (courseToEdit) {
           courseName.value = courseToEdit.courseName;
           courseCode.value = courseToEdit.courseCode;
         }
-      };
+      }
       UI.currentEditId = id;
     }, 0);
-  };
+  }
 
-
-
-    
   static openAssignModal(target, id) {
     assignModal.classList.add("assign-modal--display");
     UI.renderAssignContent(target, id);
+    console.log(target);
   }
 
   static closeAssignModal() {
@@ -152,25 +153,41 @@ class UI {
     assignModalHeader.innerHTML = "";
     assignModalBody.innerHTML = "";
     assignModalFooter.innerHTML = "";
+    console.log(target, id);
 
     //creating elements
     const assignModalHeading = document.createElement("h2");
     if (target === "students") {
       assignModalHeading.textContent = "Add student to course";
-    } else {
+    } else if (target === "instructors") {
       assignModalHeading.textContent = "Add instructor to course";
     }
 
-    const latestCourses = JSON.parse(localStorage.getItem("courses"));
-    const latestStudents = JSON.parse(localStorage.getItem("students"));
+    const latestCourses = JSON.parse(localStorage.getItem("courses")) || [];
+
+    const latestStudents = JSON.parse(localStorage.getItem("students")) || [];
     const currentStudent = latestStudents.find((student) => student.id === id);
 
-    const latestInstructors = JSON.parse(localStorage.getItem("instructors"));
+    const latestInstructors =
+      JSON.parse(localStorage.getItem("instructors")) || [];
+
     const currentInstructor = latestInstructors.find(
       (instructor) => instructor.id === id
     );
+    console.log(currentInstructor);
 
-    latestCourses.forEach((course) => {
+    const availableCourses = latestCourses.filter((course) => {
+      if (target === "students") {
+        return !currentStudent.courses.includes(course.id);
+      }
+
+      if (target === "instructors") {
+        return !currentInstructor.courses.includes(course.id);
+      }
+    });
+    console.log(availableCourses);
+
+    availableCourses.forEach((course) => {
       const courseItem = document.createElement("li");
       courseItem.classList.add("course-item");
 
@@ -181,25 +198,6 @@ class UI {
       assignButton.textContent = "Add";
       assignButton.classList.add("assign-button");
 
-      if (target === "students") {
-        if (
-          currentStudent.courses.length >= 3 ||
-          course.students.length >= 30 ||
-          course.students.find((course) => currentStudent.id === course)
-        ) {
-          assignButton.disabled = true;
-          assignButton.textContent = "Enrolled";
-        }
-      } else if (target === "instructors") {
-        if (
-          course.instructor.length > 0 ||
-          course.instructors.find((course) => currentInstructor.id === course)
-        ) {
-          assignButton.disabled = true;
-          assignButton.textContent = "Assigned";
-        }
-      }
-
       //appending
 
       assignModalBody.append(courseItem);
@@ -209,13 +207,15 @@ class UI {
       assignButton.addEventListener("click", (e) => {
         e.preventDefault();
         if (target === "students") {
-          course.students.push(currentStudent.id);
+          course.students.push(currentStudent);
           currentStudent.courses.push(course.id);
           localStorage.setItem("students", JSON.stringify(latestStudents));
           localStorage.setItem("courses", JSON.stringify(latestCourses));
           UI.renderAssignContent(target, currentStudent.id);
         } else if (target === "instructors") {
-          course.instructor.push(currentInstructor.id);
+          course.instructor.push(currentInstructor);
+          console.log(currentInstructor);
+
           currentInstructor.courses.push(course.id);
           localStorage.setItem(
             "instructors",
@@ -223,6 +223,10 @@ class UI {
           );
           localStorage.setItem("courses", JSON.stringify(latestCourses));
         }
+
+        UI.closeAssignModal();
+        UI.renderStudents(latestStudents, target);
+        UI.renderInstructors(latestInstructors, target);
       });
     });
 
@@ -330,10 +334,8 @@ class UI {
         e.preventDefault();
         if (!Validation.validateForm("students", validationMessage)) {
           return;
-
         }
 
-        };
         if (!UI.currentEditId) {
           StudentManager.addStudent(
             studentFirstNameInput.value.trim(),
@@ -343,17 +345,16 @@ class UI {
           );
         } else {
           StudentManager.editStudent(
-            UI.currentEditId, 
-            studentFirstNameInput.value.trim(), 
-            studentLastNameInput.value.trim(), 
-            studentEmailInput.value.trim(), 
+            UI.currentEditId,
+            studentFirstNameInput.value.trim(),
+            studentLastNameInput.value.trim(),
+            studentEmailInput.value.trim(),
             studentPhoneInput.value.trim()
           );
           UI.currentEditId = null;
           formModal.classList.remove("form-modal--display");
-        };
+        }
         UI.renderStudents();
-
       });
 
       formModalClose.addEventListener("click", (e) => {
@@ -452,10 +453,7 @@ class UI {
         e.preventDefault();
         if (!Validation.validateForm("instructor", validationMessage)) {
           return;
-
         }
-
-        };
         if (!UI.currentEditId) {
           InstructorManager.addInstructor(
             instructorFirstNameInput.value.trim(),
@@ -465,17 +463,16 @@ class UI {
           );
         } else {
           InstructorManager.editInstructor(
-            UI.currentEditId, 
-            instructorFirstNameInput.value.trim(), 
-            instructorLastNameInput.value.trim(), 
-            instructorEmailInput.value.trim(), 
+            UI.currentEditId,
+            instructorFirstNameInput.value.trim(),
+            instructorLastNameInput.value.trim(),
+            instructorEmailInput.value.trim(),
             instructorPhoneInput.value.trim()
           );
           UI.currentEditId = null;
           formModal.classList.remove("form-modal--display");
         }
         UI.renderInstructors();
-
       });
 
       formModalClose.addEventListener("click", () => {
@@ -535,11 +532,8 @@ class UI {
         e.preventDefault();
         if (!Validation.validateForm("course", validationMessage)) {
           return;
-
         }
 
-
-        };
         if (!UI.currentEditId) {
           CourseManager.addCourse(
             courseNameInput.value.trim(),
@@ -553,9 +547,8 @@ class UI {
           );
           UI.currentEditId = null;
           formModal.classList.remove("form-modal--display");
-        };
+        }
         UI.renderCourses();
-
       });
 
       formModalClose.addEventListener("click", () => {
@@ -566,10 +559,11 @@ class UI {
     }
   }
 
-
   // Render student list
-  static renderStudents(studentsCollection = JSON.parse(localStorage.getItem("students")) || []) {
-
+  static renderStudents(
+    studentsCollection = JSON.parse(localStorage.getItem("students")) || [],
+    target
+  ) {
     studentList.innerHTML = "";
     studentsCollection.forEach((student) => {
       // Creating elements
@@ -603,25 +597,26 @@ class UI {
       studentEmail.textContent = `E-mail: ${student.email}`;
       const studentPhone = document.createElement("p");
       studentPhone.textContent = `Phone Number: ${student.phone}`;
-      const studentId = document.createElement("p");
-      studentId.textContent = `Student ID: ${student.studentId}`;
 
       const editStudentButton = document.createElement("button");
       editStudentButton.textContent = "edit";
       const deleteStudentButton = document.createElement("button");
       deleteStudentButton.textContent = "delete";
-
-      if (student.courses) {
-        student.courses.forEach((course) => {
-          const selectedCourse = document.createElement("p");
-          selectedCourse.textContent = course.courseName + course.courseCode;
-          studentEnrollmentContent.append(selectedCourse);
-        });
-      }
-
       const studentEnrollmentButton = document.createElement("button");
-      studentEnrollmentButton.textContent = "Assign to course";
 
+      if (student.courses && student.courses.length < 3) {
+        const selectedCourse = document.createElement("p");
+        selectedCourse.textContent = `Currently enrolled in ${student.courses.length} courses`;
+        studentEnrollmentContent.append(selectedCourse);
+        studentEnrollmentTools.append(studentEnrollmentButton);
+        studentEnrollmentButton.textContent = "Assign to course";
+      } else if (student.courses.length >= 3) {
+        const studentEnrollmentMessage = document.createElement("p");
+        studentEnrollmentMessage.textContent =
+          "Already assigned to maximum amount of courses.";
+        studentEnrollmentContainer.append(studentEnrollmentMessage);
+        studentEnrollmentButton.style.display = "none";
+      }
       // Appending elements
       studentList.append(studentCard);
 
@@ -643,11 +638,9 @@ class UI {
         studentFirstName,
         studentLastName,
         studentEmail,
-        studentPhone,
-        studentId
+        studentPhone
       );
       studentInformationTools.append(editStudentButton, deleteStudentButton);
-      studentEnrollmentTools.append(studentEnrollmentButton);
 
       // Add event listeners
       deleteStudentButton.addEventListener("click", () => {
@@ -662,12 +655,12 @@ class UI {
       editStudentButton.addEventListener("click", () => {
         UI.openEditModal();
         UI.renderForm(
-          document.querySelector(".form-modal"), 
-          document.querySelector(".form-header"), 
-          document.querySelector(".form-body"), 
-          document.querySelector(".form-footer"), 
+          document.querySelector(".form-modal"),
+          document.querySelector(".form-header"),
+          document.querySelector(".form-body"),
+          document.querySelector(".form-footer"),
           "students"
-        ); 
+        );
         setTimeout(() => {
           UI.populateEditForm(student.id, "students");
         }, 0);
@@ -679,124 +672,130 @@ class UI {
     });
   }
 
-
   // Render instructor list
-  static renderInstructors(instructorsCollection = JSON.parse(localStorage.getItem("instructors")) || []) {
-
+  static renderInstructors(
+    instructorsCollection = JSON.parse(localStorage.getItem("instructors")) ||
+      [],
+    target
+  ) {
     instructorList.innerHTML = "";
-    instructorsCollection.forEach((instructor) => {
-      // Creating elements
-      const instructorCard = document.createElement("li");
-      instructorCard.classList.add("list-item");
+    if (instructorsCollection) {
+      instructorsCollection.forEach((instructor) => {
+        // Creating elements
+        const instructorCard = document.createElement("li");
+        instructorCard.classList.add("list-item");
 
-      const instructorInformationContainer = document.createElement("div");
-      instructorInformationContainer.classList.add(
-        "list-item__information-container"
-      );
-      const instructorEnrollmentContainer = document.createElement("div");
-      instructorEnrollmentContainer.classList.add(
-        "list-item__enrollment-container"
-      );
-
-      const instructorInformationContent = document.createElement("div");
-      instructorInformationContent.classList.add("list-item__information");
-      const instructorInformationTools = document.createElement("div");
-      instructorInformationTools.classList.add("list-item__tools");
-
-      const instructorEnrollmentContent = document.createElement("div");
-      instructorEnrollmentContent.classList.add("list-item__information");
-      const instructorEnrollmentTools = document.createElement("div");
-      instructorEnrollmentTools.classList.add("list-item__tools");
-
-      const instructorFirstName = document.createElement("p");
-      instructorFirstName.textContent = `First Name: ${instructor.firstName}`;
-      const instructorLastName = document.createElement("p");
-      instructorLastName.textContent = `Last Name: ${instructor.lastName}`;
-      const instructorEmail = document.createElement("p");
-      instructorEmail.textContent = `E-mail: ${instructor.email}`;
-      const instructorPhone = document.createElement("p");
-      instructorPhone.textContent = `Phone number: ${instructor.phone}`;
-      const instructorId = document.createElement("p");
-      instructorId.textContent = `Faculty ID: ${instructor.instructorId}`;
-
-      const editInstructorButton = document.createElement("button");
-      editInstructorButton.textContent = "edit";
-      const deleteInstructorButton = document.createElement("button");
-      deleteInstructorButton.textContent = "delete";
-
-      if (instructor.courses) {
-        instructor.courses.forEach((course) => {
-          const selectedCourse = document.createElement("p");
-          selectedCourse.textContent = course.courseName + course.courseCode;
-          instructorEnrollmentContent.append(selectedCourse);
-        });
-      };
-
-      const instructorEnrollmentButton = document.createElement("button");
-      instructorEnrollmentButton.textContent = "Assign to course";
-
-      // Appending elements
-      instructorList.append(instructorCard);
-
-      instructorCard.append(
-        instructorInformationContainer,
-        instructorEnrollmentContainer
-      );
-
-      instructorInformationContainer.append(
-        instructorInformationContent,
-        instructorInformationTools
-      );
-      instructorEnrollmentContainer.append(
-        instructorEnrollmentContent,
-        instructorEnrollmentTools
-      );
-
-      instructorInformationContent.append(
-        instructorFirstName,
-        instructorLastName,
-        instructorEmail,
-        instructorPhone,
-        instructorId
-      );
-      instructorInformationTools.append(
-        editInstructorButton,
-        deleteInstructorButton
-      );
-      instructorEnrollmentTools.append(instructorEnrollmentButton);
-
-      // Add event listeners
-      deleteInstructorButton.addEventListener("click", () => {
-        UI.openDeleteModal(
-          instructor.id,
-          "instructor",
-          instructor.firstName,
-          instructor.lastName
+        const instructorInformationContainer = document.createElement("div");
+        instructorInformationContainer.classList.add(
+          "list-item__information-container"
         );
-      });
+        const instructorEnrollmentContainer = document.createElement("div");
+        instructorEnrollmentContainer.classList.add(
+          "list-item__enrollment-container"
+        );
 
-      instructorEnrollmentButton.addEventListener("click", () => {
-        UI.openAssignModal(target, instructor.id);
-      });
+        const instructorInformationContent = document.createElement("div");
+        instructorInformationContent.classList.add("list-item__information");
+        const instructorInformationTools = document.createElement("div");
+        instructorInformationTools.classList.add("list-item__tools");
 
-      editInstructorButton.addEventListener("click", () => {
-        UI.openEditModal();
-        UI.renderForm(
-          document.querySelector(".form-modal"), 
-          document.querySelector(".form-header"), 
-          document.querySelector(".form-body"), 
-          document.querySelector(".form-footer"), 
-          "instructors"
-        ); 
-        setTimeout(() => {
-          UI.populateEditForm(instructor.id, "instructors");
-        }, 0);
+        const instructorEnrollmentContent = document.createElement("div");
+        instructorEnrollmentContent.classList.add("list-item__information");
+        const instructorEnrollmentTools = document.createElement("div");
+        instructorEnrollmentTools.classList.add("list-item__tools");
+
+        const instructorFirstName = document.createElement("p");
+        instructorFirstName.textContent = `First Name: ${instructor.firstName}`;
+        const instructorLastName = document.createElement("p");
+        instructorLastName.textContent = `Last Name: ${instructor.lastName}`;
+        const instructorEmail = document.createElement("p");
+        instructorEmail.textContent = `E-mail: ${instructor.email}`;
+        const instructorPhone = document.createElement("p");
+        instructorPhone.textContent = `Phone number: ${instructor.phone}`;
+
+        const editInstructorButton = document.createElement("button");
+        editInstructorButton.textContent = "edit";
+        const deleteInstructorButton = document.createElement("button");
+        deleteInstructorButton.textContent = "delete";
+        const instructorEnrollmentButton = document.createElement("button");
+
+        if (instructor.courses && instructor.courses.length < 5) {
+          const selectedCourse = document.createElement("p");
+          selectedCourse.textContent = `Currently assigned to ${instructor.courses.length} courses`;
+          instructorEnrollmentContent.append(selectedCourse);
+          instructorEnrollmentTools.append(instructorEnrollmentButton);
+          instructorEnrollmentButton.textContent = "Assign to course";
+        } else if (instructor.courses.length >= 5) {
+          const instructorEnrollmentMessage = document.createElement("p");
+          instructorEnrollmentMessage.textContent =
+            "Already assigned to maximum amount of courses";
+          instructorEnrollmentContainer.append(instructorEnrollmentMessage);
+          instructorEnrollmentButton.style.display = "none";
+        }
+
+        // Appending elements
+        instructorList.append(instructorCard);
+
+        instructorCard.append(
+          instructorInformationContainer,
+          instructorEnrollmentContainer
+        );
+
+        instructorInformationContainer.append(
+          instructorInformationContent,
+          instructorInformationTools
+        );
+        instructorEnrollmentContainer.append(
+          instructorEnrollmentContent,
+          instructorEnrollmentTools
+        );
+
+        instructorInformationContent.append(
+          instructorFirstName,
+          instructorLastName,
+          instructorEmail,
+          instructorPhone
+        );
+        instructorInformationTools.append(
+          editInstructorButton,
+          deleteInstructorButton
+        );
+
+        // Add event listeners
+        deleteInstructorButton.addEventListener("click", () => {
+          UI.openDeleteModal(
+            instructor.id,
+            "instructor",
+            instructor.firstName,
+            instructor.lastName
+          );
+        });
+
+        instructorEnrollmentButton.addEventListener("click", () => {
+          UI.openAssignModal(target, instructor.id);
+        });
+
+        editInstructorButton.addEventListener("click", () => {
+          UI.openEditModal();
+          UI.renderForm(
+            document.querySelector(".form-modal"),
+            document.querySelector(".form-header"),
+            document.querySelector(".form-body"),
+            document.querySelector(".form-footer"),
+            "instructors"
+          );
+          setTimeout(() => {
+            UI.populateEditForm(instructor.id, "instructors");
+          }, 0);
+        });
       });
-    });
-  };
+    }
+  }
 
   // Render course list
-  static renderCourses(coursesCollection = JSON.parse(localStorage.getItem("courses")) || []) {
+  static renderCourses(
+    coursesCollection = JSON.parse(localStorage.getItem("courses")) || []
+  ) {
     courseList.innerHTML = "";
     coursesCollection.forEach((course) => {
       // Creating elements
@@ -830,6 +829,19 @@ class UI {
       const deleteCourseButton = document.createElement("button");
       deleteCourseButton.textContent = "delete";
 
+      if (course.students || course.instructor) {
+        console.log(course.students, course.instructor);
+
+        const courseStudentsAmount = document.createElement("p");
+        courseStudentsAmount.textContent = `There are currently ${course.students.length} students enrolled in this class`;
+        const courseInstructorAmount = document.createElement("p");
+        courseInstructorAmount.textContent = `There is ${course.instructor.length} instructors assigned to this course`;
+        courseEnrollmentContent.append(
+          courseStudentsAmount,
+          courseInstructorAmount
+        );
+      }
+
       // Appending elements
       courseList.append(courseCard);
 
@@ -855,18 +867,18 @@ class UI {
       editCourseButton.addEventListener("click", () => {
         UI.openEditModal();
         UI.renderForm(
-          document.querySelector(".form-modal"), 
-          document.querySelector(".form-header"), 
-          document.querySelector(".form-body"), 
-          document.querySelector(".form-footer"), 
+          document.querySelector(".form-modal"),
+          document.querySelector(".form-header"),
+          document.querySelector(".form-body"),
+          document.querySelector(".form-footer"),
           "courses"
-        ); 
+        );
         setTimeout(() => {
           UI.populateEditForm(course.id, "courses");
         }, 0);
       });
     });
-  };
-};
+  }
+}
 
 export default UI;
