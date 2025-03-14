@@ -35,13 +35,9 @@ class InstructorManager {
   }
 
   // Edit
-  static editInstructor(id, firstName, lastName, email, phone) {
-    const latestInstructorCollection = JSON.parse(
-      localStorage.getItem("instructors")
-    );
-    const instructorIndex = latestInstructorCollection.findIndex(
-      (instructor) => instructor.id === id
-    );
+  static editInstructor(id, firstName, lastName, email, phone, courses) {
+    const latestInstructorCollection = JSON.parse(localStorage.getItem("instructors")) || [];
+    const instructorIndex = latestInstructorCollection.findIndex(instructor => instructor.id === id);
 
     if (instructorIndex !== -1) {
       latestInstructorCollection[instructorIndex] = {
@@ -49,7 +45,8 @@ class InstructorManager {
         firstName,
         lastName,
         email,
-        phone,
+        phone, 
+        courses
       };
       InstructorManager.storeInstructors(latestInstructorCollection);
       InstructorManager.instructorCollection = latestInstructorCollection;

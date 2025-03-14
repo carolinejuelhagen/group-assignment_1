@@ -32,14 +32,16 @@ class CourseManager {
   };
 
   // Edit
-  static editCourse(id, courseName, courseCode) {
-    const latestCourseCollection = JSON.parse(localStorage.getItem("courses"));
+  static editCourse(id, courseName, courseCode, students, instructor) {
+    const latestCourseCollection = JSON.parse(localStorage.getItem("courses")) || [];
     const courseIndex = latestCourseCollection.findIndex(course => course.id === id);
     if (courseIndex !== -1) {
       latestCourseCollection[courseIndex] = {
         id,
         courseName,
-        courseCode
+        courseCode, 
+        students, 
+        instructor
       };
       CourseManager.storeCourses(latestCourseCollection);
       CourseManager.courseCollection = latestCourseCollection;

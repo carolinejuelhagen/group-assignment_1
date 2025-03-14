@@ -101,38 +101,34 @@ class UI {
       if (type === "students") {
         formHeading.textContent = "Edit student";
         const studentsCollection = JSON.parse(localStorage.getItem("students"));
-        const studentToEdit = studentsCollection.find(
-          (student) => student.id === id
-        );
+        const studentToEdit = studentsCollection.find(student => student.id === id);
         if (studentToEdit) {
           firstName.value = studentToEdit.firstName;
           lastName.value = studentToEdit.lastName;
           email.value = studentToEdit.email;
           phone.value = studentToEdit.phone;
+          UI.studentToEditCourses = studentToEdit.courses || [];
         }
       } else if (type === "instructors") {
         formHeading.textContent = "Edit instructor";
-        const instructorCollection = JSON.parse(
-          localStorage.getItem("instructors")
-        );
-        const instructorToEdit = instructorCollection.find(
-          (instructor) => instructor.id === id
-        );
+        const instructorCollection = JSON.parse(localStorage.getItem("instructors"));
+        const instructorToEdit = instructorCollection.find(instructor => instructor.id === id);
         if (instructorToEdit) {
           firstName.value = instructorToEdit.firstName;
           lastName.value = instructorToEdit.lastName;
           email.value = instructorToEdit.email;
           phone.value = instructorToEdit.phone;
+          UI.instructorToEditCourses = instructorToEdit.courses || [];
         }
       } else if (type === "courses") {
         formHeading.textContent = "Edit course";
         const courseCollection = JSON.parse(localStorage.getItem("courses"));
-        const courseToEdit = courseCollection.find(
-          (course) => course.id === id
-        );
+        const courseToEdit = courseCollection.find(course => course.id === id);
         if (courseToEdit) {
           courseName.value = courseToEdit.courseName;
           courseCode.value = courseToEdit.courseCode;
+          UI.courseToEditStudents = courseToEdit.students || [];
+          UI.courseToEditInstructor = courseToEdit.instructor || [];
         }
       }
       UI.currentEditId = id;
@@ -142,7 +138,6 @@ class UI {
   static openAssignModal(target, id) {
     assignModal.classList.add("assign-modal--display");
     UI.renderAssignContent(target, id);
-    console.log(target);
   }
 
   static closeAssignModal() {
@@ -153,7 +148,6 @@ class UI {
     assignModalHeader.innerHTML = "";
     assignModalBody.innerHTML = "";
     assignModalFooter.innerHTML = "";
-    console.log(target, id);
 
     //creating elements
     const assignModalHeading = document.createElement("h2");
@@ -166,26 +160,25 @@ class UI {
     const latestCourses = JSON.parse(localStorage.getItem("courses")) || [];
 
     const latestStudents = JSON.parse(localStorage.getItem("students")) || [];
-    const currentStudent = latestStudents.find((student) => student.id === id);
+    const currentStudent = latestStudents.find(student => student.id === id);
 
-    const latestInstructors =
-      JSON.parse(localStorage.getItem("instructors")) || [];
-
-    const currentInstructor = latestInstructors.find(
-      (instructor) => instructor.id === id
-    );
-    console.log(currentInstructor);
+    const latestInstructors = JSON.parse(localStorage.getItem("instructors")) || [];
+    const currentInstructor = latestInstructors.find(instructor => instructor.id === id);
 
     const availableCourses = latestCourses.filter((course) => {
       if (target === "students") {
         return !currentStudent.courses.includes(course.id);
       }
-
       if (target === "instructors") {
         return !currentInstructor.courses.includes(course.id);
       }
     });
-    console.log(availableCourses);
+
+    if (availableCourses.length === 0) {
+        const noCoursesMessage = document.createElement("p");
+        noCoursesMessage.textContent = "No available courses";
+        assignModalBody.append(noCoursesMessage);
+    }
 
     availableCourses.forEach((course) => {
       const courseItem = document.createElement("li");
@@ -198,15 +191,18 @@ class UI {
       assignButton.textContent = "Add";
       assignButton.classList.add("assign-button");
 
-      //appending
-
+      // Appending
       assignModalBody.append(courseItem);
       courseItem.append(courseTitle, assignButton);
 
-      //event listeners
+      // Add event listeners
       assignButton.addEventListener("click", (e) => {
         e.preventDefault();
         if (target === "students") {
+          if (course.students.length >= 30) {
+            alert("This course already has the maximum number of students");
+            return;
+          };
           course.students.push(currentStudent);
           currentStudent.courses.push(course.id);
           localStorage.setItem("students", JSON.stringify(latestStudents));
@@ -214,13 +210,8 @@ class UI {
           UI.renderAssignContent(target, currentStudent.id);
         } else if (target === "instructors") {
           course.instructor.push(currentInstructor);
-          console.log(currentInstructor);
-
           currentInstructor.courses.push(course.id);
-          localStorage.setItem(
-            "instructors",
-            JSON.stringify(latestInstructors)
-          );
+          localStorage.setItem("instructors", JSON.stringify(latestInstructors));
           localStorage.setItem("courses", JSON.stringify(latestCourses));
         }
 
@@ -335,7 +326,6 @@ class UI {
         if (!Validation.validateForm("students", validationMessage)) {
           return;
         }
-
         if (!UI.currentEditId) {
           StudentManager.addStudent(
             studentFirstNameInput.value.trim(),
@@ -349,7 +339,8 @@ class UI {
             studentFirstNameInput.value.trim(),
             studentLastNameInput.value.trim(),
             studentEmailInput.value.trim(),
-            studentPhoneInput.value.trim()
+            studentPhoneInput.value.trim(),
+            UI.studentToEditCourses
           );
           UI.currentEditId = null;
           formModal.classList.remove("form-modal--display");
@@ -467,7 +458,8 @@ class UI {
             instructorFirstNameInput.value.trim(),
             instructorLastNameInput.value.trim(),
             instructorEmailInput.value.trim(),
-            instructorPhoneInput.value.trim()
+            instructorPhoneInput.value.trim(),
+            UI.instructorToEditCourses
           );
           UI.currentEditId = null;
           formModal.classList.remove("form-modal--display");
@@ -533,7 +525,6 @@ class UI {
         if (!Validation.validateForm("course", validationMessage)) {
           return;
         }
-
         if (!UI.currentEditId) {
           CourseManager.addCourse(
             courseNameInput.value.trim(),
@@ -543,7 +534,9 @@ class UI {
           CourseManager.editCourse(
             UI.currentEditId,
             courseNameInput.value.trim(),
-            courseCodeInput.value.trim()
+            courseCodeInput.value.trim(),
+            UI.courseToEditStudents,
+            UI.courseToEditInstructor
           );
           UI.currentEditId = null;
           formModal.classList.remove("form-modal--display");
@@ -830,8 +823,6 @@ class UI {
       deleteCourseButton.textContent = "delete";
 
       if (course.students || course.instructor) {
-        console.log(course.students, course.instructor);
-
         const courseStudentsAmount = document.createElement("p");
         courseStudentsAmount.textContent = `There are currently ${course.students.length} students enrolled in this class`;
         const courseInstructorAmount = document.createElement("p");
