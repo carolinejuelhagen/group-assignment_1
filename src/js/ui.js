@@ -49,7 +49,10 @@ class UI {
     const deleteMessage = document.querySelector(".delete-message");
     const confirmDeleteButton = document.querySelector(".confirm-delete");
 
-    deleteMessage.textContent = type === "course" ? `Are you sure you want to proceed?` : `Are you sure you want to delete ${firstName} ${lastName}?`;
+    deleteMessage.textContent =
+      type === "course"
+        ? `Are you sure you want to proceed?`
+        : `Are you sure you want to delete ${firstName} ${lastName}?`;
 
     confirmDeleteButton.addEventListener("click", () => {
       if (type === "student") {
@@ -61,8 +64,8 @@ class UI {
       }
       deleteModal.classList.remove("delete-modal--display");
     });
-  };
-  
+  }
+
   static closeDeleteModal() {
     const deleteModal = document.querySelector(".delete-modal");
     const cancelDeleteButton = document.querySelector(".cancel-delete");
@@ -70,6 +73,11 @@ class UI {
     cancelDeleteButton.addEventListener("click", () => {
       deleteModal.classList.remove("delete-modal--display");
     });
+
+  }
+
+
+
   };
 
   // Edit
@@ -128,111 +136,107 @@ class UI {
     }, 0);
   };
 
-  // Assign
-  static openAssignModal(
-    assignModal,
-    assignModalContentContainer,
-    assignModalHeader,
-    assignModalBody,
-    assignModalFooter,
-    target,
-    id
-  ) {
+
+
+    
+  static openAssignModal(target, id) {
     assignModal.classList.add("assign-modal--display");
-    UI.renderAssignContent(
-      assignModalContentContainer,
-      assignModalHeader,
-      assignModalBody,
-      assignModalFooter,
-      target,
-      id
-    );
+    UI.renderAssignContent(target, id);
   }
 
   static closeAssignModal() {
     assignModal.classList.remove("assign-modal--display");
   }
 
-  static renderAssignContent(
-    //assignModalContentContainer,
-    assignModalHeader,
-    assignModalBody,
-    assignModalFooter,
-    target,
-    id
-  ) {
+  static renderAssignContent(target, id) {
     assignModalHeader.innerHTML = "";
     assignModalBody.innerHTML = "";
     assignModalFooter.innerHTML = "";
 
-    const assignContentHeading = document.createElement("h2");
-    assignContentHeading.textContent = `Assign ${
-      target === "students" ? "Student" : "Instructor"
-    } to Course`;
+    //creating elements
+    const assignModalHeading = document.createElement("h2");
+    if (target === "students") {
+      assignModalHeading.textContent = "Add student to course";
+    } else {
+      assignModalHeading.textContent = "Add instructor to course";
+    }
 
-    const courseListContainer = document.createElement("div");
-    //CLASS??????
+    const latestCourses = JSON.parse(localStorage.getItem("courses"));
+    const latestStudents = JSON.parse(localStorage.getItem("students"));
+    const currentStudent = latestStudents.find((student) => student.id === id);
 
-    const latestCourses = JSON.parse(localStorage.getItem("courses")) || [];
-    const studentsCollection =
-      JSON.parse(localStorage.getItem("students")) || [];
-    const student = studentsCollection.find((student) => student.id === id);
+    const latestInstructors = JSON.parse(localStorage.getItem("instructors"));
+    const currentInstructor = latestInstructors.find(
+      (instructor) => instructor.id === id
+    );
 
     latestCourses.forEach((course) => {
-      const courseItem = document.createElement("div");
+      const courseItem = document.createElement("li");
       courseItem.classList.add("course-item");
 
-      const courseName = document.createElement("p");
-      courseName.textContent = `${course.courseName} (${course.courseCode})`;
+      const courseTitle = document.createElement("p");
+      courseTitle.textContent = course.courseName;
 
       const assignButton = document.createElement("button");
-      assignButton.textContent = "Assign";
+      assignButton.textContent = "Add";
       assignButton.classList.add("assign-button");
 
       if (target === "students") {
-        if (student.courses.length >= 3 || course.students.length >= 30) {
+        if (
+          currentStudent.courses.length >= 3 ||
+          course.students.length >= 30 ||
+          course.students.find((course) => currentStudent.id === course)
+        ) {
           assignButton.disabled = true;
+          assignButton.textContent = "Enrolled";
         }
       } else if (target === "instructors") {
-        if (course.instructor.length > 0) {
+        if (
+          course.instructor.length > 0 ||
+          course.instructors.find((course) => currentInstructor.id === course)
+        ) {
           assignButton.disabled = true;
+          assignButton.textContent = "Assigned";
         }
       }
 
+      //appending
+
+      assignModalBody.append(courseItem);
+      courseItem.append(courseTitle, assignButton);
+
+      //event listeners
       assignButton.addEventListener("click", (e) => {
         e.preventDefault();
         if (target === "students") {
-          course.student.push(student);
-          student.courses.push(course);
+          course.students.push(currentStudent.id);
+          currentStudent.courses.push(course.id);
+          localStorage.setItem("students", JSON.stringify(latestStudents));
+          localStorage.setItem("courses", JSON.stringify(latestCourses));
+          UI.renderAssignContent(target, currentStudent.id);
         } else if (target === "instructors") {
-          const instructors =
-            JSON.parse(localStorage.getItem("instructors")) || [];
-          const instructor = instructors.find(
-            (instructor) => instructor.id === id
+          course.instructor.push(currentInstructor.id);
+          currentInstructor.courses.push(course.id);
+          localStorage.setItem(
+            "instructors",
+            JSON.stringify(latestInstructors)
           );
-          course.instructor.push(instructor);
-          instructor.courses.push(course);
+          localStorage.setItem("courses", JSON.stringify(latestCourses));
         }
-
-        localStorage.setItem("courses", JSON.stringify(latestCourses));
-        localStorage.setItem("students", JSON.stringify(studentsCollection));
       });
-      courseItem.append(courseName, assignButton);
-      courseListContainer.append(courseItem);
     });
 
-    const assignModalClose = document.createElement("button");
-    assignModalClose.textContent = "Cancel";
-    assignModalClose.classList.add("cancel-button");
-    // SET ATTRIBUTE?
+    const assignModalCloseButton = document.createElement("button");
+    assignModalCloseButton.classList.add("cancel-button");
+    assignModalCloseButton.textContent = "Cancel";
 
-    assignModalClose.addEventListener("click", () => {
-      UI.closeAssignModal(assignModal);
+    //appending
+    assignModalHeader.append(assignModalHeading);
+    assignModalFooter.append(assignModalCloseButton);
+
+    assignModalCloseButton.addEventListener("click", () => {
+      UI.closeAssignModal();
     });
-
-    assignModalHeader.append(assignContentHeading);
-    assignModalBody.append(courseListContainer);
-    assignModalFooter.append(assignModalClose);
   }
 
   // Render form based on data-target
@@ -326,6 +330,9 @@ class UI {
         e.preventDefault();
         if (!Validation.validateForm("students", validationMessage)) {
           return;
+
+        }
+
         };
         if (!UI.currentEditId) {
           StudentManager.addStudent(
@@ -346,6 +353,7 @@ class UI {
           formModal.classList.remove("form-modal--display");
         };
         UI.renderStudents();
+
       });
 
       formModalClose.addEventListener("click", (e) => {
@@ -444,6 +452,9 @@ class UI {
         e.preventDefault();
         if (!Validation.validateForm("instructor", validationMessage)) {
           return;
+
+        }
+
         };
         if (!UI.currentEditId) {
           InstructorManager.addInstructor(
@@ -464,6 +475,7 @@ class UI {
           formModal.classList.remove("form-modal--display");
         }
         UI.renderInstructors();
+
       });
 
       formModalClose.addEventListener("click", () => {
@@ -523,6 +535,10 @@ class UI {
         e.preventDefault();
         if (!Validation.validateForm("course", validationMessage)) {
           return;
+
+        }
+
+
         };
         if (!UI.currentEditId) {
           CourseManager.addCourse(
@@ -539,6 +555,7 @@ class UI {
           formModal.classList.remove("form-modal--display");
         };
         UI.renderCourses();
+
       });
 
       formModalClose.addEventListener("click", () => {
@@ -546,11 +563,13 @@ class UI {
         validationMessage.style.display = "none";
         UI.currentEditId = null;
       });
-    };
-  };
+    }
+  }
+
 
   // Render student list
   static renderStudents(studentsCollection = JSON.parse(localStorage.getItem("students")) || []) {
+
     studentList.innerHTML = "";
     studentsCollection.forEach((student) => {
       // Creating elements
@@ -632,7 +651,12 @@ class UI {
 
       // Add event listeners
       deleteStudentButton.addEventListener("click", () => {
-        UI.openDeleteModal(student.id, "student", student.firstName, student.lastName);
+        UI.openDeleteModal(
+          student.id,
+          "student",
+          student.firstName,
+          student.lastName
+        );
       });
 
       editStudentButton.addEventListener("click", () => {
@@ -650,21 +674,15 @@ class UI {
       });
 
       studentEnrollmentButton.addEventListener("click", () => {
-        this.openAssignModal(
-          assignModal,
-          assignModalContentContainer,
-          assignModalHeader,
-          assignModalBody,
-          assignModalFooter,
-          "students",
-          student.id
-        );
+        UI.openAssignModal(target, student.id);
       });
     });
   }
 
+
   // Render instructor list
   static renderInstructors(instructorsCollection = JSON.parse(localStorage.getItem("instructors")) || []) {
+
     instructorList.innerHTML = "";
     instructorsCollection.forEach((instructor) => {
       // Creating elements
@@ -749,7 +767,16 @@ class UI {
 
       // Add event listeners
       deleteInstructorButton.addEventListener("click", () => {
-        UI.openDeleteModal(instructor.id, "instructor", instructor.firstName, instructor.lastName);
+        UI.openDeleteModal(
+          instructor.id,
+          "instructor",
+          instructor.firstName,
+          instructor.lastName
+        );
+      });
+
+      instructorEnrollmentButton.addEventListener("click", () => {
+        UI.openAssignModal(target, instructor.id);
       });
 
       editInstructorButton.addEventListener("click", () => {

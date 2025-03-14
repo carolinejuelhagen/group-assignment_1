@@ -1,37 +1,38 @@
 :root {
-    /* COLORS */
-    --color-background-light: #ffffff;
-    --color-background-medium: #b4d7f5;
-    --color-background-dark: #040f1a;
+  /* COLORS */
+  --color-background-light: #ffffff;
+  --color-background-medium: #b4d7f5;
+  --color-background-dark: #040f1a;
 
-    --button-color: hsl(35, 21%, 90%);
+  --button-color: hsl(35, 21%, 90%);
+  --button-color-disabled: #434343;
 
-    --modal-overlay-background: rgba(0, 0, 0, 0.2);
+  --modal-overlay-background: rgba(0, 0, 0, 0.2);
 
-    --text-color-light: #edf5fc;
-    --text-color-dark: #040f1a;
+  --text-color-light: #edf5fc;
+  --text-color-dark: #040f1a;
 
-    --validation-border: #f6510b;
-    --text-validation-message: #f6510b;
+  --validation-border: #f6510b;
+  --text-validation-message: #f6510b;
 
-    /* SPACING */
-    --spacing-x-small: 0.25rem;
-    --spacing-small: 0.5rem;
-    --spacing-medium: 1rem;
-    --spacing-large: 2rem;
-    --spacing-x-large: 3rem;
+  /* SPACING */
+  --spacing-x-small: 0.25rem;
+  --spacing-small: 0.5rem;
+  --spacing-medium: 1rem;
+  --spacing-large: 2rem;
+  --spacing-x-large: 3rem;
 
-    /* FONT SIZE */
-    --font-size-small: 0.75rem;
-    --font-size-base: 1rem;
-    --font-size-medium: 1.2rem;
-    --font-size-large: 1.5rem;
-    --font-size-x-large: 2rem;
+  /* FONT SIZE */
+  --font-size-small: 0.75rem;
+  --font-size-base: 1rem;
+  --font-size-medium: 1.2rem;
+  --font-size-large: 1.5rem;
+  --font-size-x-large: 2rem;
 
-    /* BORDER RADIUS */
-    --border-radius-small: 0.25rem;
-    --border-radius-medium: 0.5rem;
+  /* BORDER RADIUS */
+  --border-radius-small: 0.25rem;
+  --border-radius-medium: 0.5rem;
 
-    /* BOX SHADOW */
-    --box-shadow-base: 0 0 5px 0 rgba(0, 0, 0, 0.3);
+  /* BOX SHADOW */
+  --box-shadow-base: 0 0 5px 0 rgba(0, 0, 0, 0.3);
 }
