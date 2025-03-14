@@ -17,17 +17,16 @@
 }
 
 .assign-modal__content-container {
-	min-width: 360px;
-	max-width: 460px;
-	width: 95%;
-	min-height: 80%;
-
-	display: flex;
-	flex-direction: column;
-	gap: var(--spacing-large);
-	background-color: var(--color-background-medium);
-	border-radius: var(--border-radius-small);
-	padding: var(--spacing-large);
+  min-width: 350px;
+  max-width: 460px;
+  width: 95%;
+  min-height: 80%;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-large);
+  background-color: var(--color-background-medium);
+  border-radius: var(--border-radius-small);
+  padding: var(--spacing-large);
 }
 
 .assign-header {
@@ -61,25 +60,11 @@
 	background-color: var(--color-background-light);
 }
 
-/* .course-item p {
+.course-item p {
   margin: 0;
   font-size: var(--font-size-medium);
   color: var(--text-color-dark);
-} */
 
-.assign-button {
-	padding: var(--spacing-small);
-	border-radius: var(--border-radius-small);
-	border: 2px solid var(--color-background-dark);
-	background-color: var(--color-background-light);
-	cursor: pointer;
-	width: 64px;
-}
-
-.assign-button:disabled {
-	background-color: var(--button-color-disabled);
-	color: var(--text-color-light);
-	cursor: not-allowed;
 }
 
 .assign-footer {
@@ -89,15 +74,5 @@
 }
 
 .assign-footer button {
-	width: 100%;
-	color: var(--text-color-dark);
-	font-size: var(--font-size-base);
-}
-
-.cancel-button {
-	background-color: var(--color-background-light);
-	border: none;
-	border-radius: var(--border-radius-small);
-	padding: var(--spacing-small);
-	cursor: pointer;
+  width: 100%;
 }

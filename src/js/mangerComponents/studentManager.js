@@ -35,13 +35,9 @@ class StudentManager {
   }
 
   // Edit
-  static editStudent(id, firstName, lastName, email, phone) {
-    const latestStudentCollection = JSON.parse(
-      localStorage.getItem("students")
-    );
-    const studentIndex = latestStudentCollection.findIndex(
-      (student) => student.id === id
-    );
+  static editStudent(id, firstName, lastName, email, phone, courses) {
+    const latestStudentCollection = JSON.parse(localStorage.getItem("students")) || [];
+    const studentIndex = latestStudentCollection.findIndex(student => student.id === id);
 
     if (studentIndex !== -1) {
       latestStudentCollection[studentIndex] = {
@@ -50,6 +46,7 @@ class StudentManager {
         lastName,
         email,
         phone,
+        courses
       };
       StudentManager.storeStudents(latestStudentCollection);
       StudentManager.studentsCollection = latestStudentCollection;
