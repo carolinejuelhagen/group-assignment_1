@@ -6,10 +6,10 @@ class StudentManager {
     JSON.parse(localStorage.getItem("students")) || [];
 
   // Add
-  static addStudent(firstName, lastName, email, phone, studentId) {
+  static addStudent(firstName, lastName, email, phone) {
     const latestStudentCollection =
       JSON.parse(localStorage.getItem("students")) || [];
-    let student = new Student(firstName, lastName, email, phone, studentId);
+    let student = new Student(firstName, lastName, email, phone);
     latestStudentCollection.push(student);
     StudentManager.storeStudents(latestStudentCollection);
     StudentManager.studentsCollection = latestStudentCollection;
@@ -24,9 +24,11 @@ class StudentManager {
   static deleteStudent(id) {
     const latestStudentCollection =
       JSON.parse(localStorage.getItem("students")) || [];
-    StudentManager.studentsCollection = latestStudentCollection.filter((student) => {
-      return student.id !== id;
-    });
+    StudentManager.studentsCollection = latestStudentCollection.filter(
+      (student) => {
+        return student.id !== id;
+      }
+    );
 
     StudentManager.storeStudents(StudentManager.studentsCollection);
     UI.renderStudents();
@@ -34,8 +36,12 @@ class StudentManager {
 
   // Edit
   static editStudent(id, firstName, lastName, email, phone) {
-    const latestStudentCollection = JSON.parse(localStorage.getItem("students"));
-    const studentIndex = latestStudentCollection.findIndex(student => student.id === id);
+    const latestStudentCollection = JSON.parse(
+      localStorage.getItem("students")
+    );
+    const studentIndex = latestStudentCollection.findIndex(
+      (student) => student.id === id
+    );
 
     if (studentIndex !== -1) {
       latestStudentCollection[studentIndex] = {
@@ -43,13 +49,13 @@ class StudentManager {
         firstName,
         lastName,
         email,
-        phone
+        phone,
       };
       StudentManager.storeStudents(latestStudentCollection);
       StudentManager.studentsCollection = latestStudentCollection;
-      UI.renderStudents(); 
-    };
-  };
-};
+      UI.renderStudents();
+    }
+  }
+}
 
 export default StudentManager;

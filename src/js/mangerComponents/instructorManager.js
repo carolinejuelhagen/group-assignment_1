@@ -6,16 +6,10 @@ class InstructorManager {
     JSON.parse(localStorage.getItem("instructors")) || [];
 
   // Add
-  static addInstructor(firstName, lastName, email, phone, instructorId) {
+  static addInstructor(firstName, lastName, email, phone) {
     const latestInstructorCollection =
       JSON.parse(localStorage.getItem("instructors")) || [];
-    let instructor = new Instructor(
-      firstName,
-      lastName,
-      email,
-      phone,
-      instructorId
-    );
+    let instructor = new Instructor(firstName, lastName, email, phone);
     latestInstructorCollection.push(instructor);
     InstructorManager.storeInstructors(latestInstructorCollection);
     InstructorManager.instructorCollection = latestInstructorCollection;
@@ -30,9 +24,11 @@ class InstructorManager {
   static deleteInstructor(id) {
     const latestInstructorCollection =
       JSON.parse(localStorage.getItem("instructors")) || [];
-    InstructorManager.instructorCollection = latestInstructorCollection.filter((instructor) => {
-      return instructor.id !== id;
-    });
+    InstructorManager.instructorCollection = latestInstructorCollection.filter(
+      (instructor) => {
+        return instructor.id !== id;
+      }
+    );
 
     InstructorManager.storeInstructors(InstructorManager.instructorCollection);
     UI.renderInstructors();
@@ -40,8 +36,12 @@ class InstructorManager {
 
   // Edit
   static editInstructor(id, firstName, lastName, email, phone) {
-    const latestInstructorCollection = JSON.parse(localStorage.getItem("instructors"));
-    const instructorIndex = latestInstructorCollection.findIndex(instructor => instructor.id === id);
+    const latestInstructorCollection = JSON.parse(
+      localStorage.getItem("instructors")
+    );
+    const instructorIndex = latestInstructorCollection.findIndex(
+      (instructor) => instructor.id === id
+    );
 
     if (instructorIndex !== -1) {
       latestInstructorCollection[instructorIndex] = {
@@ -49,13 +49,13 @@ class InstructorManager {
         firstName,
         lastName,
         email,
-        phone
+        phone,
       };
       InstructorManager.storeInstructors(latestInstructorCollection);
       InstructorManager.instructorCollection = latestInstructorCollection;
       UI.renderInstructors();
-    };
-  };
-};
+    }
+  }
+}
 
 export default InstructorManager;
