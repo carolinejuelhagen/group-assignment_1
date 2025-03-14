@@ -1,4 +1,6 @@
 .footer {
+    width: 100%;
+    min-width: 350px;
     display: flex;
     justify-content: center;
     padding: var(--spacing-medium);
