@@ -36,9 +36,6 @@
   width: 100%;
   justify-content: space-between;
   align-items: center;
-}
-
-.form-header h2 {
   font-size: var(--font-size-large);
   color: var(--text-color-dark);
 }
